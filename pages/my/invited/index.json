@@ -1,0 +1,6 @@
+{
+    "usingComponents": {
+        "header": "/components/header/index",
+        "followList": "../index/followList/index"
+    }
+}

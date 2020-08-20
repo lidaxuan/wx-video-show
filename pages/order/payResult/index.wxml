@@ -1,0 +1,13 @@
+<header title="" class="page-header"></header>
+<view class="result-box page-container" style="padding-top:{{headerHeight}}px;">
+    <view class="result">
+        <image src="http://i2.tiimg.com/502738/c312c5c21f52521f.png"></image>
+        <text>支付成功</text>
+    </view>
+    <view class="coupon-box">
+        <image class="title" src="http://i2.tiimg.com/502738/fcbe73947e7b7aed.png"></image>
+        <view class="list">
+            <couponList class="item"></couponList>
+        </view>
+    </view>
+</view>

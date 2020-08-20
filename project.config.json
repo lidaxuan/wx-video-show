@@ -1,0 +1,112 @@
+{
+	"description": "项目配置文件",
+	"packOptions": {
+		"ignore": []
+	},
+	"setting": {
+		"urlCheck": false,
+		"es6": true,
+		"enhance": false,
+		"postcss": true,
+		"minified": true,
+		"newFeature": true,
+		"coverView": true,
+		"nodeModules": true,
+		"autoAudits": true,
+		"checkInvalidKey": true,
+		"checkSiteMap": true,
+		"uploadWithSourceMap": true,
+		"babelSetting": {
+			"ignore": [],
+			"disablePlugins": [],
+			"outputPath": ""
+		},
+		"bundle": true
+	},
+	"compileType": "miniprogram",
+	"libVersion": "2.9.0",
+	"appid": "wx13294b26c00b1a58",
+	"projectname": "show-h5-wx",
+	"debugOptions": {
+		"hidedInDevtools": []
+	},
+	"isGameTourist": false,
+	"simulatorType": "wechat",
+	"simulatorPluginLibVersion": {},
+	"condition": {
+		"search": {
+			"current": -1,
+			"list": []
+		},
+		"conversation": {
+			"current": -1,
+			"list": []
+		},
+		"plugin": {
+			"current": -1,
+			"list": []
+		},
+		"game": {
+			"currentL": -1,
+			"list": []
+		},
+		"gamePlugin": {
+			"current": -1,
+			"list": []
+		},
+		"miniprogram": {
+			"current": 3,
+			"list": [
+				{
+					"id": 0,
+					"name": "pages/buyCourse/buyCourse",
+					"pathName": "pages/buyCourse/buyCourse",
+					"query": "courseId= 271915 ",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/classification/classification",
+					"pathName": "pages/classification/classification",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": 2,
+					"name": "pages/fullScreenVideo/fullScreenVideo",
+					"pathName": "pages/fullScreenVideo/fullScreenVideo",
+					"query": "courseId=132139",
+					"scene": null
+				},
+				{
+					"id": 3,
+					"name": "pages/merchant/merchant",
+					"pathName": "pages/merchant/merchant",
+					"query": "userId=21612037",
+					"scene": null
+				},
+				{
+					"id": 4,
+					"name": "pages/course/buySuccess/buySuccess",
+					"pathName": "pages/course/buySuccess/buySuccess",
+					"query": "couponId= 13420085&courseId= 5170731",
+					"scene": null
+				},
+				{
+					"id": 5,
+					"name": "pages/rule/coursePurchase/coursePurchase",
+					"pathName": "pages/rule/coursePurchase/coursePurchase",
+					"query": "courseId= 42027",
+					"scene": null
+				},
+				{
+					"id": 6,
+					"name": "pages/my/coupon/index",
+					"pathName": "pages/my/coupon/index",
+					"query": "",
+					"scene": null
+				}
+			]
+		}
+	}
+}

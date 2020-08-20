@@ -1,0 +1,49 @@
+<wxs module="filter" src="../../../utils/returnMTime.wxs"></wxs>
+<header class="page-header"></header>
+
+<view style="padding-top:{{paddingTop}}px">
+    <view class="cord">
+        <image class="iv-cord" src="/static/img/brokerage_cord_bg.png" mode="scaleToFill">
+            <view class="v-cord">
+                <text class="tv-balance">余额</text>
+                <text class="tv-money">{{filter.filter.toFix(totalMoney,2)}}</text>
+                <text class="tv-nonsupport">暂不支持提现和退款</text>
+            </view>
+        </image>
+    </view>
+    <view class="v-middle">
+        <view class="v-share" bindtap="toInvited" data-type="merchant">
+            <text class="tv-peoplenum">{{merchantCount}}</text>
+            <text class="tv-peopletip">邀请商家（位）</text>
+        </view>
+        <view class="middle-line" />
+        <view class="v-share" bindtap="toInvited" data-type="friend">
+            <text class="tv-peoplenum">{{lowerCount}}</text>
+            <text class="tv-peopletip">邀请好友（人）</text>
+        </view>
+    </view>
+    <view style="background-color:#f7f7f7;width:100%;height:16rpx" />
+    <view wx:if="{{dataList.length}}">
+        <view wx:for="{{dataList}}" wx:key="item" wx:for-index="index">
+            <view class="list-item">
+                <view class="list-left">
+                    <text class="list-name" wx:if="{{item.detail}}">{{item.detail}}</text>
+                    <text class="list-name" wx:else>提现</text>
+                    <text class="list-academy" wx:if="{{item.productTitle}}">{{item.productTitle}}</text>
+                    <text class="list-time">{{item.createdAt}}</text>
+                </view>
+
+                <view class="list-right">
+                    <text class="list-money">{{(item.brokerageType==='CASH'?'-':'+')+item.benefit}}</text>
+                    <text class="list-tip" wx:if="{{item.cashStatus}}">{{item.cashStatus}}</text>
+                    <text class="list-tip" wx:else>{{item.content}}</text>
+                </view>
+                <view class="list-line" />
+            </view>
+        </view>
+    </view>
+    <view class="empty" wx:else>
+        <image class="empty-image" src="/static/img/icon_course_list_empty.png"></image>
+        <text class="empty-text">暂无明细</text>
+    </view>
+</view>

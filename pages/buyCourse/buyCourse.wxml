@@ -1,0 +1,130 @@
+<!--pages/buyCourse/buyCourse.wxml-->
+
+<!-- 引入.wxs文件 src为相对路径，module指定当前模块的名称 -->
+<wxs module="filter" src="../../utils/returnMTime.wxs"></wxs>
+
+
+<header title="购买课程" class />
+
+<view class="courseInfo">
+    <image class="courseCover" src="{{courseInfo.cover}}"></image>
+    <view class="right">
+        <view class="coursenum">
+            <text>共{{courseInfo.lessonCon}}</text>节 ·
+            <text>{{courseInfo.pv}}</text>人感兴趣
+        </view>
+        <view class="courseTitle">{{courseInfo.title}}</view>
+    </view>
+</view>
+
+
+<view class="coursePrice">
+    <text>课程价格</text>
+    <text>{{ filter.filter.fixPrice(courseInfo.price) }}  元</text>
+</view>
+<view class="line"></view>
+
+<view class="moneyPayBox">
+    <view class="coupon">
+        <view class="leftBox">
+            <image class="icon" src="/static/img/couponIcon@2x.png"></image>
+            <text>优惠券</text>
+        </view>
+        <view bindtap="couponBtn" class="couponMoney">
+            <text wx:if="{{amount > 0 && havecouponFlag}}" class="useCoupon">- {{ filter.filter.fixPrice(amount) }} 元</text>
+            <text wx:if="{{amount == 0 && !havecouponFlag == false}}">不使用优惠券</text>
+            <text class="nohavecoupon" wx:elif="{{!havecouponFlag}}">暂无可用</text>
+            <image class="couponrightBackimg" src="/static/img/Rectangle@2x.png"></image>
+        </view>
+    </view>
+
+    <view class="paytype">
+        <view class="leftBox">
+            <image class="icon" src="/static/img/weixin@2x.png"></image>
+            <text>微信支付</text>
+        </view>
+        <text wx-if="{{false}}" class="check"></text>
+        <image wx-if="{{true}}" class="active" src="/static/img/configSection@2x.png"></image>
+    </view>
+</view>
+<view class="line"></view>
+
+<view class="agreement">
+    <view class="agreementContent">
+        <text bindtap="coursePurchaseBtn" wx:if="{{courseInfo.ruleName}}">同意《{{courseInfo.ruleName}}》</text>
+        <text>本产品为虚拟产品, 一经支付, 概不退款</text>
+    </view>
+    <text bindtap="ruleNameBtn" wx-if="{{courseInfo.ruleName && !couponRuleFlag}}" class="check"></text>
+    <image bindtap="ruleNameBtn" wx-if="{{courseInfo.ruleName && couponRuleFlag}}" class="active" src="/static/img/agreementDoCheck@2x.png"></image>
+</view>
+
+<view class="pay_btn_box" style="margin-bottom: {{marginBottom}}rpx">
+    <view class="leftBox">
+        <view wx:if="{{havecouponFlag}}">
+            <text>实付 </text>
+            <text>{{ courseInfo.price - amount <= 0 ? 0 : filter.filter.fixPrice(courseInfo.price - amount) }} 元</text>
+        </view>
+        <view wx:if="{{!havecouponFlag}}">
+            <text>实付 </text>
+            <text>{{filter.filter.fixPrice(courseInfo.price)}}元</text>
+        </view>
+    </view>
+    <button bindtap="payBtn" class="pay_btn">立即支付</button>
+</view>
+
+<!-- 下拉框弹出 -->
+<view id="downBox" catchtouchmove="return" bindtap="hideDownBox" class="downBox {{hideDownBox ? 'show' : 'hide' }}" style="padding-top: {{paddingTop}}px;">
+    <view class="downBoxListBox">
+        <view class="title">优惠券选择</view>
+        <view style="height: 100%;overflow: auto">
+
+            <scroll-view bindscrolltolower="scrolltolower" style="height: 100%" scroll-y="true">
+                <view bindtap="selectCoupon" class="noselect" wx:for="{{nodataList}}" wx:key="item" data-item="{{item}}" wx:if="{{index <= 3}}">
+                    <view>{{item.title}}</view>
+                    <text wx:if="{{item.couponId !== couponId}}" class="check"></text>
+                    <image wx:if="{{item.couponId == couponId}}" class="active" src="/static/img/configSection@2x.png"></image>
+                </view>
+
+                <view class="haveDataLCouponList">
+                    <view class="couponItem" wx:for="{{dataList}}" wx:key="item">
+                        <!-- <image class="couponItemLeft" src="/static/img/Rectangle@2x(2).png">
+                            <view class="actualPay" wx:if="{{false}}">免费领取</view>
+                            <view class="actualPay" v-if="item.type == 2">{{item.price}}元购</view>
+                            <view><text>{{item.amount}}</text>元</view>
+                            <view>可抵现金</view>
+                        </image> -->
+                        <view class="couponItemLeft">
+                            <image class="couponItemLeftimg" src="/static/img/Rectangle@2x(2).png"></image>
+                            <view class="actualPay" wx:if="{{item.type == 1}}">免费领取</view>
+                            <view class="actualPay" wx:if="{{item.type == 2}}">{{item.price}}元购</view>
+                            <view class="zIndex">
+                                <text>{{item.amount}}</text>元</view>
+                            <view class="zIndex">可抵现金</view>
+                        </view>
+
+                        <view class="couponItemRight" bindtap="selectCoupon" data-item="{{item}}">
+                            <view class="top">
+                                <image class="cashvoucherimg" src="/static/img/Group14@2x.png" alt=""></image>
+                                {{item.title}} * {{item.count}} 张
+                            </view>
+
+                            <view wx:if="{{item.showTimer}}" class="time">
+                                <text style="color: #EB4655">仅剩 {{filter.filter.hmsTime(item.remainingTime)}} 活动结束</text>
+                            </view>
+                            <view wx:if="{{!item.showTimer}}" class="time">
+                                <text>{{filter.filter.formatTime(item.etime,1)}}</text> 到期</view>
+
+                            <text wx-if="{{item.couponId !== couponId}}" class="dot"></text>
+                            <image wx-if="{{item.couponId == couponId}}" class="active" src="/static/img/configSection@2x.png"></image>
+                            <!-- <image wx-if="{{item.useType == 2}}" class="useTypeImg" src="/static/img/useType@2x.png" alt=""></image> -->
+                        </view>
+                    </view>
+
+                    <view class="meCourseNodata" wx:if="{{dataList.length == 0 && couponManageAjaxFlag}}">
+                        <text>暂无可用优惠券</text>
+                    </view>
+                </view>
+            </scroll-view>
+        </view>
+    </view>
+</view>

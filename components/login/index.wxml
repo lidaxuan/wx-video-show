@@ -1,0 +1,9 @@
+<view class="bg {{show}}"></view>
+<view class="login-box {{show}}">
+    <view class="title">更多操作请登录</view>
+    <image class="tmp_icon" src="/static/img/wechat.png"></image>
+    <button class="btn wechat" bind:tap="login" wx:if="{{hasSignUp}}">微信授权</button>
+    <button open-type="getPhoneNumber" class="btn wechat" bind:getphonenumber="wxLogin" wx:if="{{!hasSignUp}}">微信授权</button>
+    <!-- <view class="btn xjs" bind:tap="toXJSLogin">秀健身账号</view> -->
+    <view class="close" bind:tap="cancel"></view>
+</view>

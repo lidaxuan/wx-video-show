@@ -1,0 +1,56 @@
+<!--pages/index/popularRecommendation/popularRecommendation.wxml-->
+<!-- <text>pages/index/popularRecommendation/popularRecommendation.wxml</text> -->
+
+<!-- <input type='number' bind:input="bindcode" style='width:200rpx;height:98rpx;background: pink' value='{{codes}}'></input> -->
+<swiper vertical="{{true}}" circular="{{true}}" current="{{current}}" skip-hidden-item-layout="{{true}}" bindchange="changeCurrent" bindanimationfinish="changeItem">
+    <swiper-item item-id="{{oneItemParam.id}}">
+        <video title="1111111" id="myVideo0" bindfullscreenchange="fullScreen" src="{{oneItemParam.src}}"  poster="{{oneItemParam.pic}}" custom-cache="{{true}}" controls="{{true}}" bindplay="eventPlay" bindtap="tabVideo"></video>
+    </swiper-item>
+
+    <swiper-item item-id="{{twoItemParam.id}}">
+        <video title="2222222" id="myVideo1" bindfullscreenchange="fullScreen" src="{{twoItemParam.src}}"  poster="{{twoItemParam.pic}}" custom-cache="{{true}}" controls="{{true}}" bindplay="eventPlay" bindtap="tabVideo"></video>
+    </swiper-item>
+
+    <swiper-item item-id="{{threeItemParam.id}}">
+        <video title="3333333" id="myVideo2" bindfullscreenchange="fullScreen" src="{{threeItemParam.src}}" poster="{{threeItemParam.pic}}" custom-cache="{{true}}" controls="{{true}}" bindplay="eventPlay" bindtap="tabVideo"></video>
+    </swiper-item>
+</swiper>
+
+<!-- 用户 -->
+<view hidden="{{isFull}}" class="user flex flex-alignItems">
+    <view class="userBox">
+        <image src="/static/img/defaultUserHead.png" class="head"></image>
+        <image src="/static/img/follow@2x.png" class="followBtn"></image>
+        <image src="/static/img/Collection@2x.png" class="CollectionBtn"></image>
+        <text class="collectionNum">1231</text>
+        <image src="/static/img/share@2x.png" class="shareBtn"></image>
+        <text class="shareNum">1.2w</text>
+        <image src="/static/img/thumbsUp@2x.png" class="thumbsUp"></image>
+        <text class="thumbsUpNum">1.2w</text>
+    </view>
+</view>
+<image hidden="{{isFull}}" src="/static/img/fullScreen@2x.png" bindtap="fullBtn" class="fullScreenBtn"></image>
+
+<!-- 话题 描述 -->
+<view hidden="{{isFull}}" class="courseVideoInfo">
+    <view class="courseVideoInfoTop">
+        <view class="businessName">@ 费恩莱斯 </view>
+        <view class="courseTitile">费恩莱斯高级全能私人健身教练 认证课程</view>
+    </view>
+    <view class="courseVideoInfoBottom">
+        <view class="courseIntroduction">大幅加强腰腹核心力量和肌耐力，雕塑般的腹 肌不是梦，从此告别大幅加强腰腹核心力量和肌耐力，雕塑般的腹 肌不是梦，从此告别腹愁者…</view>
+        <view class="lookMoreBtn">查看更多</view>
+    </view>
+    <!-- <cover-view class="flex flex-alignItems">
+        <cover-view class="tag-child flex flex-alignItems">
+            <cover-view class="topicName-content hide1">{{videoParam.topic}}</cover-view>
+        </cover-view>
+    </cover-view>
+    <cover-view>{{videoParam.description}}aaaaaaaaa</cover-view> -->
+</view>
+
+<!-- <cover-image src="../../../static/img/defaultUserHead.png" class="play" wx:if="{{playMark==1}}" bindtap="tabVideo"></cover-image> -->
+<!-- <view class="fullBtn"  bindtap="asdasd">全屏按钮</view> -->
+
+<!-- 动态修改视频id无法拿到最新的实例 视频有封面的情况下会闪烁 video动态修改src需要一点时间缓冲 很影响性能 会影响滑动效果-->
+<!-- 强制500ms间隔允许滑动 -->

@@ -1,0 +1,9 @@
+<!--pages/openVideoList/openVideoList.wxml-->
+<!-- <text>pages/openVideoList/openVideoList.wxml</text> -->
+<header title="公开课" class="header" />
+
+<view  style="padding-top: {{paddingTop}}px;" class="container">
+    <view>2222</view>
+   
+    <videoList id="videoList" getfollowIdArr="{{getfollowIdArr}}" dataList="{{videoList}}"></videoList>
+</view>

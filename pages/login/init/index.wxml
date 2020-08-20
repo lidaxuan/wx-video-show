@@ -1,0 +1,22 @@
+<view class="search header" style="padding-top:{{paddingTop}}px">
+    <view class="inner">
+        <!-- <view class="btn nback" bind:tap="back" >返回</view> -->
+        <text class="title" style="width:{{width}}px">温馨小问卷</text>
+    </view>
+</view>
+<view class="survey" style="padding-top:{{headerHeight}}px">
+    <view class="inner">
+        <view class="item" wx:for="{{list}}">
+            <view class="title">
+               <text>{{item.label}}</text>
+               <text class="subtitle" wx:if="{{item.adesc}}">( {{item.adesc}} )</text>
+            </view>
+            <view class="option-list">
+                <view class="option {{subitem.selected ? 'active' : ''}}" data-index="{{index}}" wx:for="{{item.options}}" wx:for-item="subitem" wx:for-index="subindex" data-subindex="{{subindex}}"  data-value="{{subitem.value}}" bind:tap="itemTap">{{subitem.name}}</view>
+            </view>
+        </view>
+    </view>
+</view>
+<image class="loginInitMask" src="/static/img/loginInitMask@2x.png">
+    <view class="btn-ok" bind:tap="submit">确认</view>
+</image>

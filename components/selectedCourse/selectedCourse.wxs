@@ -1,0 +1,67 @@
+var logic = {
+    lessonCon: function (lessonCon, pv) { //课节
+        if (lessonCon == null || lessonCon <= 0)
+            return ''
+        return "共" + lessonCon + "节·" + (pv > 0 ? (million(pv)) + '感兴趣' : '快来加入学习!')
+    },
+    teacher: function (lecturerInfo) { //老师
+        if (lecturerInfo == null || lecturerInfo.length == 0)
+            return
+        else if (lecturerInfo.length == 1) {
+            return "讲师：" + lecturerInfo[0].name  + "·" + lecturerInfo[0].labe;
+        } else {
+            var teacher = '';
+            var length = lecturerInfo.length > 3 ? 3 : lecturerInfo.length;
+            for (var i = 0; i < length; i++) {
+                if (i == length - 1)
+                    teacher = teacher + (lecturerInfo[i].name.length > 5 ? lecturerInfo[i].name.substring(0, 3) + "…" : lecturerInfo[i].name);
+                else
+                    teacher = teacher + ((lecturerInfo[i].name.length > 5 ? lecturerInfo[i].name.substring(0, 3) + "…" : lecturerInfo[i].name) + "、");
+            }
+            if (lecturerInfo.length > 3) {
+                return "讲师：" + teacher + "等" + lecturerInfo.length + "位"
+            } else {
+                return "讲师：" + teacher
+            }
+        }
+    },
+    validtime: function (ntime, etime) {
+        if (!etime) return
+        if (ntime - etime > 0) {
+            return formatTime(etime) + " 已过期"
+        } else {
+            return "截止 " + formatTime(etime) + " 到期"
+        }
+    }
+}
+
+function million(value) { //过万处理
+    var num;
+    if (value > 9999) { //大于9999显示x.xx万
+        num = (Math.floor(value / 100) / 100) + 'w';
+    } else if (value <= 9999 && value > -9999) {
+        num = value
+    } else if (value < -9999) { //小于-9999显示-x.xx万
+        num = -(Math.floor(Math.abs(value) / 1000) / 10) + 'w'
+    }
+    return num;
+}
+
+function formatTime(timestamp) {
+    var date = getDate(timestamp)
+    var year = date.getFullYear()
+    var month = date.getMonth() + 1
+    var day = date.getDate()
+    var hour = date.getHours()
+    var minute = date.getMinutes()
+    var second = date.getSeconds()
+    return [year, month, day].map(formatNumber).join('-') + ' ' + [hour, minute].map(formatNumber).join(':')
+}
+
+function formatNumber(n) {
+    n = n.toString()
+    return n[1] ? n : '0' + n
+}
+module.exports = {
+    logic: logic
+}

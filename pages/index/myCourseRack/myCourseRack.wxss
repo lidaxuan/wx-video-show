@@ -1,0 +1,29 @@
+/* pages/index/myCourseRack/myCourseRack.wxss */
+
+.top_view {
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  text-align: center;
+  height: 430rpx;
+}
+
+.h_image {
+  width: 200rpx;
+  height: 200rpx;
+  margin:0 auto;
+}
+.desc {
+  bottom: 100rpx;
+  color: #DDD;
+  font-family:PingFangSC-Semibold,PingFang SC;
+  font-size: 14px;
+  line-height:40px;
+}
+.desc_title {
+  margin-top: 60rpx;
+  color: #333;
+  font-size:14px;
+  font-family:PingFangSC-Medium,PingFang SC;
+  bottom: 10rpx;
+}

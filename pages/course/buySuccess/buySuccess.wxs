@@ -1,0 +1,26 @@
+var buysucc = {
+    validtime: function(ntime, stime, etime) {
+        if (ntime > stime) { //
+
+        }
+    }
+}
+
+function formatNumber(n) {
+    n = n.toString()
+    return n[1] ? n : '0' + n
+}
+
+function formatTime(timestamp) {
+    var date = getDate(timestamp)
+    var year = date.getFullYear()
+    var month = date.getMonth() + 1
+    var day = date.getDate()
+    var hour = date.getHours()
+    var minute = date.getMinutes()
+    var second = date.getSeconds()
+    return [year, month, day].map(formatNumber).join('-') + ' ' + [hour, minute, second].map(formatNumber).join(':')
+}
+module.exports = {
+    buysucc: buysucc
+}

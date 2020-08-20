@@ -1,0 +1,16 @@
+<!--pages/webView/index.wxml-->
+
+<!-- 调用方式 -->
+<!-- wx.navigateTo({
+            url: '/pages/course/exam/index,
+            success: function(res) {
+                // 通过eventChannel向被打开页面传送数据
+                res.eventChannel.emit('webViewEvent', {
+                    url:'/h5/course/#/examIndex?courseId=' + _this.data.courseId,
+                    title:'导航栏标题'
+                })
+            }
+        }); -->
+
+
+<web-view src="{{url}}&token={{token}}&isXcx=1" bindmessage="recieveWebMessage"></web-view>

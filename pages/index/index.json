@@ -1,0 +1,9 @@
+{
+    "component": true,
+    "usingComponents": {
+        "login": "/components/login/index",
+        "popularRecommendation": "./popularRecommendation/popularRecommendation",
+        "search": "/components/search/index",
+        "myCourseRack":"/pages/index/myCourseRack/myCourseRack"
+    }
+}

@@ -1,0 +1,28 @@
+<header hideHome="1" class="header" title="秀健身登录"></header>
+<view class="login-box" style="padding-top:{{headerHeight}}px">
+    <view class="inner">
+        <view class="box phone-box">
+            <view class="l">+86</view>
+            <input type="number" value="{{phone}}" placeholder="请输入手机号码" bindinput="inputPhone"></input>
+            <view class="r btn-clear" wx:if="{{showClearPhone}}" bind:tap="clearPhone"></view>
+        </view>
+        <view class="box phone-box">
+            <view class="l">验证码</view>
+            <input type="number" value="{{vcode}}" placeholder="请输入验证码" bindinput="inputVcode"></input>
+            <view class="r btn-get-vcode" wx:if="{{!waiting}}" bind:tap="getVCode">获取验证码</view>
+            <view class="r btn-get-vcode countdown" wx:if="{{waiting}}">{{countDown}}s</view>
+        </view>
+        <view class="btn-login" hover-class="hover" hover-start-time="0" hover-stay-time="100" bind:tap="login">登录</view>
+    </view>
+    <view class="other-box">
+        <view class="title">
+            <text>其他登录方式</text>
+        </view>
+        <view class="btn-wechat" wx:if="{{hasSignUp}}" bind:tap="wxlogin"></view>
+        <button class="btn-wechat" open-type="getPhoneNumber" bindgetphonenumber="wxLogin" wx:if="{{!hasSignUp}}"></button>
+        <view class="tip">登录即同意
+            <text bind:tap="toUserAgreement">《用户协议》</text> 和
+            <text bind:tap="toPrivacyPolicy">《隐私政策》</text>
+        </view>
+    </view>
+</view>

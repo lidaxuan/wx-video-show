@@ -1,0 +1,23 @@
+<wxs module="filter" src="../../utils/returnMTime.wxs"></wxs>
+
+<view class="item" wx:for="{{dataList}}" wx:key="dataItem">
+  <view class="l {{couponType==0?'l-light':'l-gray'}}">
+    <view class="price">{{item.type==1 ? '免费领取' : item.price+'元购'}}</view>
+    <view class="value">{{item.amount}}</view>
+    <view class="tip">可抵现金</view>
+  </view>
+  <view class="r" style="background-color:{{backgroundColor}}">
+    <view class="name {{couponType==0?'active':'gray'}}" style="color:{{couponType==0?'#333':'#999'}}">{{item.productTitle}} *{{item.ncount}}</view>
+    <view class="date">
+      <!-- filter.filter.formatTime(item.remainingTime,1) -->
+      <text class="timer-title" wx:if="{{item.showTimer}}">仅剩 {{filter.filter.hmsTime(item.remainingTime)}} {{(item.type==2 && item.useType==1) || (item.type==1 && item.useType==0) ?'活动结束':'截止购买'}}</text>
+      <text wx:if="{{!item.showTimer}}" style="color:{{couponType==0?'#333':'#999'}}">{{item.type==2?'购买时间:':''}}{{filter.filter.formatTime(item.stime,1)}} 至</text>
+      <text wx:if="{{!item.showTimer}}" style="color:{{couponType==0?'#333':'#999'}}">{{filter.filter.formatTime(item.etime,1)}}</text>
+    </view>
+    <view class="btn-use" wx:if="{{(couponType == 0) && ((item.type == 1 && item.useType==0)||(item.type == 2 && item.useType==1)) }}" data-item="{{item}}" bindtap="clickUse">立即使用</view>
+    <image class="rb-s-img" wx:if="{{ couponType == 0 && item.type==2 && item.useType==2}}" src="/static/img/coupon/useType@2x.png"></image>
+    <image class="rb-b-img" wx:if="{{couponType==2}}" src="/static/img/coupon/coupon_overdue.png"></image>
+    <image class="rb-b-img" wx:if="{{couponType==1}}" src="/static/img/coupon/coupon_used.png"></image>
+    <!-- <image class="rb-s-img" wx:if="{{couponType==2 && item.useType==2}}" src="/static/img/coupon/useType_gray.png"></image> -->
+  </view>
+</view>

@@ -1,0 +1,26 @@
+.header {
+    position: fixed;
+    left: 0;
+    top: 0;
+    right: 0;
+    z-index: 999;
+}
+
+.empty {
+    padding: 80rpx 0 100rpx;
+    text-align: center;
+    font-size: 30rpx;
+    color: #999;
+}
+
+.empty image {
+    display: block;
+    height: 220rpx;
+    width: 220rpx;
+    margin: auto;
+}
+
+.empty text {
+    display: block;
+    padding-top: 40rpx;
+}

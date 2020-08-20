@@ -1,0 +1,374 @@
+<!--pages/course/courseInfo.wxml-->
+<wxs src="./courseInfo.wxs" module="courseInfoWxs" />
+<wxs module="filter" src="../../../utils/returnMTime.wxs"></wxs>
+<login id="loginIn"></login>
+<header title="商家课程" class="courseHeader" />
+
+<view wx:if="{{isShelf}}">
+  <view id="player" style="top:{{paddingTop}}px;">
+    <view class="videoBox">
+      <view class="playVideoCover" bindtap="beginPlay" wx:if="{{coverVisible}}">
+        <image wx:if="{{poster}}" src="{{poster + '?x-oss-process=image/resize,w_375'}}" class="poster" mode="aspectFill"></image>
+        <image src="/static/img/paly.png" class="playBtn"></image>
+      </view>
+      <view class="videoContent" wx:if="{{!coverVisible}}">
+        <view class="playVideo">
+          <video id="myVideo" src="{{videoPlayUrl}}" controls bindended="bindended" autoplay='true' binderror="binderror" bindtimeupdate="bindtimeupdate" title="{{videoTitle}}" show-center-play-btn="false" auto-pause-if-navigate="true" auto-pause-if-open-native="true"
+            bindfullscreenchange="bindfullscreenchange" bindpause="bindpause"></video>
+        </view>
+      </view>
+      <view class="freePlayCover" wx:if="{{freePlayCover}}">
+        <view class="freeText">试看已结束，
+          <view>前往APP查看完整课程</view>
+        </view>
+        <view class="againFreePlay" bindtap="againFreePlay">重新试看</view>
+      </view>
+      <view class="freePlayCover" wx:if="{{loadError}}">
+        <view class="freeText">视频加载失败，刷新一下试试</view>
+        <view class="refreshBtn" bindtap="refreshVideo">刷新</view>
+      </view>
+    </view>
+    <image src="/static/img/course/poster.png" class="generatePoster" bindtap="getWxQrcode"></image>
+    <view class="videoExperience">
+      <!--认证课程显示-->
+      <image src="/static/img/course/smalldown.png" class="smallDownLoad" data-type="1" bindtap="hideGuideVisible" alt="弹出框 type=1" wx-if="{{courseInfo.type==2}}"></image>
+      <view class="experience">
+        <view class="collection" bindtap="collectCountFn">
+          <image src="/static/img/haveBeenCollected@2x.png" wx:if="{{collectState==1}}"></image>
+          <image src="/static/img/course/icon_collection.png" wx:else></image>
+          {{operateInfo.collectCount?filter.filter.million(operateInfo.collectCount):0}}
+        </view>
+        <view class="thumbs" bindtap="thumbCountFn">
+          <image src="/static/img/alreadyPraised@2x.png" wx:if="{{thumbState==1}}"></image>
+          <image src="/static/img/course/icon_thumbs.png" wx:else></image>
+          {{operateInfo.thumbCount?filter.filter.million(operateInfo.thumbCount):0}}
+
+        </view>
+        <button open-type="share" class="share">
+          <image src="/static/img/course/icon_share.png"></image>
+        </button>
+        <!-- <view class="share" ><image src="/static/img/course/icon_share.png"></image></view> -->
+      </view>
+    </view>
+  </view>
+  <view id="courseInfoContent" style="margin-top:{{paddingTop+videoHeight}}px;">
+    <!--business info-->
+    <view class="courseTop">
+      <view class="businessInfo">
+        <view class="business-l" bindtap="goUserInfo" data-id="{{merchantData.userId}}">
+          <span>
+            <image src="{{merchantData.head}}" class="businessLogo" mode="aspectFill"></image>
+            <image src="/static/img/course/identity@2x.png" class="rz-icon" wx:if="merchantData.authType==1"></image>
+            <image src="/static/img/course/daren@2x.png" class="rz-icon" wx:if="merchantData.authType==2"></image>
+            <image src="/static/img/course/business@2x.png" class="rz-icon" wx:if="merchantData.authType==3"></image>
+          </span>
+          <view>{{merchantData.nick}}</view>
+        </view>
+        <view class="business-r" wx:if="{{!relationStatus && !activeFollow}}" bindtap="followBtn">关注</view>
+        <view class="business-r grayBtn" wx:if="{{!relationStatus && activeFollow}}">已关注</view>
+      </view>
+      <!--course info-->
+      <view class="courseContent">
+        <view class="courseTitle">
+          <view class="title">{{filter.filter.replaceAll(courseInfo.title)}}</view>
+          <view class="brief" wx:if="{{brief}}" bindtap="briefShow">
+            <span>简介</span>
+            <image src="/static/img/course/brif.png"></image>
+          </view>
+        </view>
+        <view class="countSection">{{courseInfo.lessonCon}}节(共{{courseInfo.sumDuration==0 ? 1 :courseInfo.sumDuration}}分钟)
+          <text class="options">·</text>{{courseInfo.pv?filter.filter.million(courseInfo.pv):0}}人感兴趣
+          <text class="lines"></text>
+          <text class="validity">有效期{{courseInfo.validDays}}天</text>
+        </view>
+        <view class="lecturerBox" wx:if="{{lecturerList.length>0}}">
+          <view>
+            <view class="lecturerShow">
+              <text>讲师：</text>
+              <view>
+                <view wx:for="{{lecturerList}}" wx:for-index="idx" wx:for-item="item" wx:key="itemName" wx:if="{{idx<defaultNumber}}">{{item.name}}·{{item.labe}}</view>
+              </view>
+            </view>
+            <view class="lecturerMore" id="lecturerMore" wx:if="{{lecturerList.length>5}}" bindtap="lecturerMore">
+              <text ref="words">{{lecturerShow?'收起':'展开'}}</text>
+              <image src="/static/img/course/bottom_tri@2x.png" wx:if="{{!lecturerShow}}"></image>
+              <image src="/static/img/course/top_tri@2x.png" wx:if="{{lecturerShow}}"></image>
+            </view>
+          </view>
+        </view>
+
+        <view class="cerAuthority" wx:if="{{authInstitute.length>0}}">
+          <view class="cerTitle">认证机构</view>
+          <view class="authority" id="authority">
+            <view id="authority-box">
+              <view class="atten-l" wx:for="{{authInstitute}}" wx:for-index="index" wx:for-item="item" wx:key="itemname">
+                <image src="{{item.logo}}" class="icon-img"></image>
+                <view>{{item.name}}</view>
+              </view>
+            </view>
+          </view>
+        </view>
+      </view>
+            <!--普通课程-->
+      <image src="/static/img/course/groupcopy@2x.png" data-type="1" class="downApp" bindtap="hideGuideVisible" alt="弹出框 type=1" wx-if="{{courseInfo.type==1}}"></image>
+      <!--认证课程-->
+      <view class="informationBar" wx-if="{{courseInfo.type==2}}">
+        <image src="/static/img/GroupCopy@2x.png" class="downApp"></image>
+        <view class="processBar" wx-if="{{examStatus==0}}">
+          <view>
+            <image src="/static/img/course/tip1@2x.png" class="icons icons1"></image>学习并通过考试即颁发证书</view>
+          <text class="learnMore" bindtap="closePopup" data-param="isCerPopup">了解详情</text>
+        </view>
+        <view class="processBar" wx-if="{{examStatus==1}}">
+          <view>
+            <image src="/static/img/course/tip2@2x.png" class="icons icons2"></image>暂无认证考试资格</view>
+          <text class="learnMore" bindtap="getCerType">获得资格</text>
+        </view>
+        <view class="processBar" wx-if="{{examStatus==2}}">
+          <view>
+            <image src="/static/img/course/tip2@2x.png" class="icons icons2"></image>认证考试将{{filter.filter.formatTime(learnStatus.sttime,3)}}开启</view>
+        </view>
+        <view class="processBar" wx-if="{{examStatus==3}}">
+          <view>
+            <image src="/static/img/course/tip2@2x.png" class="icons icons2"></image>获得考试认证资格</view>
+          <text class="learnMore" bindtap="closePopup" data-param="isExamTip">开始考试</text>
+        </view>
+        <view class="processBar" wx-if="{{examStatus==6}}">
+          <view>
+            <image src="/static/img/course/tip4@2x.png" class="icons icons4"></image>倒计时结束后可再次考试</view>
+          <text class="learnMore">{{filter.filter.hmsTime(examCountDown)}}</text>
+        </view>
+        <view class="processBar" wx-if="{{examStatus==4}}">
+          <view>
+            <image src="/static/img/course/tip3@2x.png" class="icons icons3"></image>已通过认证考试</view>
+          <text class="learnMore" data-index="2" bindtap="receivCer">领取证书</text>
+        </view>
+        <view class="processBar" wx-if="{{examStatus==5}}">
+          <view>
+            <image src="/static/img/course/tip3@2x.png" class="icons icons3"></image>已获得本课程证书</view>
+          <text class="learnMore" bindtap="closePopup" data-param="isCerPopup">了解详情</text>
+        </view>
+
+      </view>
+    </view>
+
+    <view class="courseMessage">
+      <view class="catalogue-title">课程目录</view>
+      <view class="course-section">
+        <!--有章-->
+        <view class="chapter-list" wx:if="{{existC==1}}">
+          <view wx:for="{{lessonList}}" wx:for-index="index" wx:for-item="item" wx:key="itemno">
+            <view class="chapter-title">
+              <text>第{{filter.filter.changeChina(item.no)}}章</text>{{item.title}}</view>
+            <view class="list-content" wx:for="{{item.lessons}}" wx:for-index="indexLi" wx:for-item="itemLi" wx:key="itemLiId" data-url="{{itemLi.transcodeUrl}}" bindtap="videoPlay" data-index="{{itemLi.no}}">
+              <view class="section-l">
+                <image lazy-load="true" src="{{itemLi.cover + '?x-oss-process=image/resize,w_200'}}" class="coverImg" mode="aspectFill"> </image>
+                <view class="covers" wx:if="{{itemLi.no>freeSection}}"></view>
+                <image class="icon_play" src="/static/img/course/play@2x.png" wx:if="{{playActive==itemLi.no}}"> </image>
+                <text class="duration">{{courseInfoWxs.get_fomate_min(itemLi.duration)}}</text>
+              </view>
+              <view class="section-r">
+                <view class="section-name">{{filter.filter.replaceAll(itemLi.title)}}</view>
+                <view class="section-bottom">
+                  <image class="try-look" src="/static/img/course/look@2x.png" wx:if="{{itemLi.no<freeSection+1 && !isBuy}}"></image>{{courseInfoWxs.splitText(itemLi.lecturer,0)}}
+                  <text class="options" wx:if="{{itemLi.lecturer}}">·</text>{{courseInfoWxs.splitText(itemLi.lecturer,1)}}</view>
+              </view>
+            </view>
+          </view>
+        </view>
+        <!--无章-->
+
+        <view class="chapter-list" wx:if="{{existC==2}}" wx:for="{{lessonList}}" wx:for-index="index" wx:for-item="item" data-url="{{item.transcodeUrl}}" data-index="{{item.no}}" wx:key="itemId" bindtap="videoPlay">
+          <view class="list-content">
+            <view class="section-l">
+              <image lazy-load="true" src="{{item.cover + '?x-oss-process=image/resize,w_200'}}" class="coverImg" mode="aspectFill"> </image>
+              <view class="covers" wx:if="{{item.no>freeSection}}"></view>
+              <image class="icon_play" src="/static/img/course/play@2x.png" wx:if="{{playActive==item.no}}"> </image>
+              <text class="duration">{{courseInfoWxs.get_fomate_min(item.duration)}}</text>
+            </view>
+            <view class="section-r">
+              <view class="section-name">{{filter.filter.replaceAll(item.title)}}</view>
+              <view class="section-bottom">
+                <image class="try-look" src="/static/img/course/look@2x.png" wx:if="{{item.no<freeSection+1 && !isBuy}}"></image>{{courseInfoWxs.splitText(item.lecturer,0)}}
+                <text class="options" wx:if="{{itemLi.lecturer}}">·</text>{{courseInfoWxs.splitText(item.lecturer,1)}}</view>
+            </view>
+          </view>
+        </view>
+
+      </view>
+      <view class="ends" wx:if="{{loadFinish}}">
+        <image src="/static/img/end.png"></image>
+      </view>
+    </view>
+    <view class="goLearn" wx:if="{{!isIos && btnRemove}}">
+      <view wx:if="{{!isBuy}}" bindtap="goBuyCourse">立即学习
+        <text>{{filter.filter.fixPrice(courseInfo.price)}}</text>
+      </view>
+      <!-- 产品说要去掉!!! -->
+      <!-- <view wx:if="{{isBuy}}" bindtap="beginPlay">继续学习</view> -->
+    </view>
+  </view>
+</view>
+
+<view class="shelf" wx:if="{{!isShelf}}">
+  <view>
+    <image src="/static/img/course/icon_xiajia.png"></image>
+    课程已下架
+  </view>
+</view>
+
+
+<!--引导下载页-->
+<view class="guideToggle" wx:if="{{guideVisible}}" catchtouchmove="return">
+  <view class="guideContent">
+    <image src="/static/img/course/guide_close.png" alt="关闭弹出框 type=3" data-type="3" class="guideClose" bindtap="hideGuideVisible"></image>
+    <view class="guideTitle">请按以下引导打开APP</view>
+    <view class="guideImg">
+      <image src="/static/img/course/guide.png"></image>
+    </view>
+    <button class="knowBtn" alt="关闭弹出框 type=2" data-type="2" bindtap="hideGuideVisible" send-message-title="回复数字“1”获取下载地址" send-message-img="/static/img/course/guidesend.png" show-message-card="true" send-message-path="/pages/course/courseInfo/courseInfo"
+      bindcontact='contactCallback' open-type='contact'>好的，我知道了</button>
+  </view>
+</view>
+
+<!-- 海報彈框  hidden="{{showCardModal}}" -->
+<view class="container" wx:if="{{showCardModal}}" catchtouchmove="return">
+  <view class="blackCover" bindtap="closeFn"></view>
+  <view class="cardContent">
+    <image src="{{shareImage}}" class="share-image"></image>
+    <canvasdrawer painting="{{painting}}" class="canvasdrawer" bind:getImage="eventGetImage" />
+    <button class="savelacally" bindtap="eventSave" wx:if="{{saveBtnVisible}}">保存图片</button>
+  </view>
+</view>
+
+<!--查看证书-->
+<view class="popup" wx:if="{{isCerPopup}}" catchtouchmove="return">
+  <view class="popupContent">
+    <view class="tipTitle" id="tipTitle"></view>
+    <view class="showLearnContent">
+      <view wx:if="{{!isBuy}}">
+        <view>1、课程学习{{courseIntroduce.ableQuizDate}}天后可参加考试。</view>
+        <view>2、共100题,总分100分。</view>
+        <view>3、考试时间为90分钟,开考30分钟后方可交卷。</view>
+        <view>4、成绩满90分通过，届时将为你颁发证书。</view>
+        <view>5、中途弃考或分数不足90分，复习72小时后方可再次获得补考机会。</view>
+      </view>
+      <!--购买过显示证书名称-->
+      <view wx:if="{{isBuy}}">{{courseInfo.certTitle}}</view>
+    </view>
+    <view class="sureBtn" bindtap="closePopup" data-param="isCerPopup">
+      <text class="redColor">确定</text>
+    </view>
+  </view>
+</view>
+
+
+<!--去高级课程-->
+<view class="popup" catchtouchmove="return" wx:if="{{isHighCourse}}">
+  <view class="popupContent">
+    <view class="tipTitle" id="tipTitle">恭喜您</view>
+    <view class="showLearnContent">
+      <view wx:if="{{highCoursePopup.type==1}}">已完成本课程学习，通过「{{highCoursePopup.highCourseName}}」认证后，获得本课程考试资格。</view>
+      <view wx:if="{{highCoursePopup.type==2}}">已通过本课程认证，并获得「{{highCoursePopup.highCourseName}}」认证资格，是否前往了解？</view>
+    </view>
+    <view class="sureBtn">
+      <text bindtap="closePopup" data-param="isHighCourse">算了</text>
+      <text class="redColor" bindtap="goHighCourse" data-param="isHighCourse">立即前往</text>
+    </view>
+  </view>
+</view>
+
+
+<!--实名认证-->
+<view class="popup" catchtouchmove="return" wx:if="{{isRealNameAuth}}">
+  <view class="popupContent">
+    <view class="tipTitle" id="tipTitle">实名认证</view>
+    <view class="showLearnContent">
+      <view>领取认证证书前需要核实您的真实身份，是否立刻前往实名认证</view>
+    </view>
+    <view class="sureBtn">
+      <text bindtap="closePopup" data-param="isRealNameAuth">算了</text>
+      <text class="redColor" bindtap="goH5Page" data-index="3" data-param="isRealNameAuth">立即前往</text>
+    </view>
+  </view>
+</view>
+
+<!--考试规则-->
+<view class="popup" catchtouchmove="return" wx:if="{{isExamTip}}">
+  <view class="popupContent">
+    <view class="tipTitle" id="tipTitle">考试规则</view>
+    <view class="showLearnContent">
+      <view>认证课程试题共100道，在规定时间90分钟内答对90道及以上单选题目即可通过考试</view>
+    </view>
+    <view class="sureBtn">
+      <text bindtap="closePopup" data-param="isExamTip">再等等</text>
+      <text class="redColor" bindtap="goH5Page" data-index="1" data-param="isExamTip">开始考试</text>
+    </view>
+  </view>
+</view>
+
+<!--简介弹窗-->
+<view class="fadeIntro" id="fadeIntro" wx:if="{{briefVisible}}" style="top:{{paddingTop+videoHeight}}px;">
+  <view class="briefTitle">
+    <view class="brief-header">
+      <view>简介</view>
+      <image class="close" src="/static/img/course/close@2x.png" bindtap="briefShow"></image>
+    </view>
+  </view>
+  <view class="fadeBox" id="fadeBox">
+    <view class="intro-box" id="intro-box" style="height:{{reMarkHeight}}px">
+      {{courseIntroduce.remark}}
+    </view>
+  </view>
+</view>
+
+<!--优惠券icon-->
+<view class="fix_lqCoupon" wx:if="{{iconLqCoupon && !isBuy}}" bindtap="hideCoupon">
+  <image src="/static/img/course/lqCoupon.png" class="icon_lqCoupon"></image>
+  <view class="couponMoney">
+    <view>
+      <text>{{couponData.amount}}</text>元</view>
+  </view>
+  <view>仅剩{{couponData.spareCount}}名</view>
+</view>
+
+<!--领取优惠券-->
+<view class="couponContent" wx:if="{{couponVisible}}" catchtouchmove="return">
+  <!--站内课程优惠券-->
+  <view class="couponToggle">
+    <image src="/static/img/course/couponBg2.png" class="couponBgImg"></image>
+    <view class="couponBox">
+      <view class="couponPrice">
+        <view class="couponPrice">{{couponData.amount}}</view>
+        <view>元</view>
+      </view>
+      <view class="couponSmallTitle">可抵现金</view>
+      <view class="couponTime">
+        <view wx:if="{{couponData.timeStatus==1}}">
+          {{ filter.filter.timestampToTime(couponData.stime) }} 至 {{ filter.filter.timestampToTime(couponData.etime) }}
+        </view>
+        <view wx:if="{{couponData.timeStatus==2}}">
+          仅剩 {{filter.filter.hmsTime(countTimes)}} 活动结束
+        </view>
+        <view wx:if="{{couponData.timeStatus==3}}">
+          {{ filter.filter.timestampToTime(couponData.etime) }} 到期
+        </view>
+
+      </view>
+      <view class="cnLines"></view>
+      <view class="couponName">{{courseInfoWxs.stringStr(couponData.productTitle,16)}}专享</view>
+      <!-- <view class="couponBsName">官方抵金券</view> -->
+      <view class="couponBtn">
+        <view class="button" wx:if="{{couponBtn}}" bindtap="lqCourseConponF">
+          <image src="/static/img/course/couponBg3.png"></image>
+          <view class="buttonText">{{couponBtnText}}</view>
+        </view>
+        <view class="button grayButton" wx:if="{{!couponBtn}}">
+          <image src="/static/img/course/couponBg4.png"></image>
+          <view class="buttonText" bindtap="lqCourseConponF">{{couponBtnText}}</view>
+        </view>
+      </view>
+      <image src="/static/img/course/cnClose.png" class="couponClose" bindtap="hideCoupon"></image>
+    </view>
+  </view>
+</view>

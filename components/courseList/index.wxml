@@ -1,0 +1,15 @@
+<view class="course-list">
+    <view class="item" wx:for="{{list}}" wx:key="item">
+        <view class="img-box" data-hi="{{item}}" bindtap="itemTap">
+            <image lazy-load="true" src="{{item.cover + '?x-oss-process=image/resize,w_250'}}" mode="aspectFill"></image>
+            <view class="icon {{item.cfType == 1 ? 'type1' : ''}}">{{item.cfType == 1 ? "公开课" : "精选课"}}</view>
+            <view class="info">
+                <text>{{tools.filter.million(item.cfType == 1 ?item.ppv :item.pv)}}播放</text>
+                <text>{{tools.filter.returnMTime(item.duration)}}</text>
+            </view>
+        </view>
+        <view class="desc">{{item.title}}</view>
+    </view>
+</view>
+
+<wxs src="../../utils/returnMTime.wxs" module="tools" />

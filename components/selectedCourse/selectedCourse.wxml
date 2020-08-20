@@ -1,0 +1,31 @@
+<wxs module="filter" src="../../utils/returnMTime.wxs"></wxs>
+<wxs module="logic" src="./selectedCourse.wxs"></wxs>
+
+<view wx:if="{{(dataList!=null&&dataList.length>0)||(list!=null&&list.length>0)}}">
+    <view wx:for="{{(dataList==null||dataList.length<=0)?list:dataList}}" wx:key="item" wx:for-index="index">
+        <view class="choiceness-view" bindtap="jumpToCourseInfo" data-course-id="{{item.id?item.id:item.courseId}}">
+            <image class="img-bg" lazy-load="true" src="{{item.cover + '?x-oss-process=image/resize,w_350'}}" data-index="{{index}}" mode="aspectFill" binderror="errImg" />
+            <view class="img-shade">
+                <image class="img-certificate" hidden="{{item.type!=2}}" src="/static/img/icon_course_certificate.png" />
+                <view class="choiceness-left">
+                    <text class="tv-lessonCon">{{logic.logic.lessonCon(item.lessonCon,item.pv)}}</text>
+                    <text class="tv-title"> {{item.title}} </text>
+                    <view class="tv-teacher" wx:if="{{item.lecturerInfo!=null&&item.lecturerInfo.length>0}}"
+                     >{{logic.logic.teacher(item.lecturerInfo)}}</view>
+                    <text class="tv-teacher" wx:if="{{item.etime!=null}}">{{logic.logic.validtime(nowTime,item.etime)}}</text>
+                </view>
+
+                <view class="choiceness-right" wx:if="{{item.price!=null && !isIos}}">
+                    <view class="right-view">
+                        <text class="tv-money-left">{{filter.filter.splitStr(filter.filter.toFix(item.price,2),".")[0]}}</text>
+                        <text class="tv-money-right">.{{filter.filter.splitStr(filter.filter.toFix(item.price,2),".")[1]}}</text>
+                    </view>
+                </view>
+            </view>
+        </view>
+    </view>
+</view>
+<view class="choiceness-empty" wx:if="{{noData}}">
+    <image class="empty-image" src="/static/img/icon_course_list_empty.png"></image>
+    <text class="empty-text">暂无课程</text>
+</view>

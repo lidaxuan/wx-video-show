@@ -1,0 +1,49 @@
+<header class="page-header"></header>
+<login id="login" bind:onLoginSuccess="onLoginSuccess"></login>
+<view class="box" style="padding-top:{{paddingTop}}px">
+    <view class="merchant-top">
+        <view class="merchant-top-bg">
+            <view class="merchant-iv-head">
+                <image src="{{userInfo.head}}" mode="aspectFill" />
+            </view>
+        </view>
+        <view class="merchant-view-name">
+            <text class="merchant-tv-name">{{userInfo.nick}}</text>
+            <text class="merchant-bt-attention" bindtap="attention" wx:if="{{attentionType==1}}">已关注</text>
+            <text class="merchant-bt-attention" bindtap="attention" wx:elif="{{attentionType==2}}">互相关注</text>
+            <text class="merchant-bt-attention" bindtap="attention" wx:else>关注</text>
+        </view>
+        <view class="merchant-view-info">
+            <image style="width:32rpx; height:32rpx" src="/static/img/identity@2x.png" wx:if="{{userInfo.authType==1}}" mode="scaleToFill" />
+            <image style="width:32rpx; height:32rpx" src="/static/img/Daren@2x.png" wx:elif="{{userInfo.authType==2}}" mode="scaleToFill" />
+            <image style="width:32rpx; height:32rpx" src="/static/img/business@2x.png" wx:elif="{{userInfo.authType==3}}" mode="scaleToFill" />
+
+            <text class="merchant-tv-info" wx:if="{{userInfo.authTitle}}">{{userInfo.authTitle}}</text>
+            <image style="width:26rpx; height:26rpx;" mode="scaleToFill" src="/static/img/icon_common_woman.png" wx:if="{{userInfo.gender==2}}" />
+            <image style="width:26rpx; height:26rpx;" mode="scaleToFill" src="/static/img/icon_common_man.png" wx:else />
+            <text class="merchant-tv-info">{{userInfo.area?userInfo.area:'地区 未知'}}</text>
+        </view>
+
+        <view class="merchant-line" />
+        <text class="merchant-tv-introduce">{{(userInfo.slogan==null||userInfo.slogan=="")?'还没有签名':userInfo.slogan}}</text>
+        <view class="merchant-line-thick" />
+
+        <view class="merchant-tab-box">
+            <text class="merchant-tab-tab {{currentTab==0?'merchant-tab-active':''}}" data-current-tab="0" bindtap="switchTab">公开课程</text>
+            <text class="merchant-tab-tab {{currentTab==1?'merchant-tab-active':''}}" data-current-tab="1" bindtap="switchTab">精选课程</text>
+        </view>
+        <view class="{{fixed?'merchant-tab-box merchant-tab-fixed':'merchant-tab-box'}}" hidden="{{!fixed}}" style="top:{{paddingTop}}px">
+            <text class="merchant-tab-tab {{currentTab==0?'merchant-tab-active':''}}" data-current-tab="0" bindtap="switchTab">公开课程</text>
+            <text class="merchant-tab-tab {{currentTab==1?'merchant-tab-active':''}}" data-current-tab="1" bindtap="switchTab">精选课程</text>
+        </view>
+
+        <view class="merchant-list-box">
+            <selectedCourse id="idSelected" user-id="{{userId}}" class="merchant-list-list {{currentTab == 1 ? 'merchant-list-show' : ''}}" bind:stoprefresh="onStopRefresh" />
+            <courseList from-type="merchant" id="idfreecourse" list="{{freeCourseList}}" class="merchant-list-list open-list {{currentTab == 0 ? 'merchant-list-show' : ''}}" />
+            <view class="choiceness-empty" wx:if="{{freeCourseList.length<=0 && currentTab == 0}}">
+                <image class="choiceness-empty-image" src="/static/img/icon_course_list_empty.png"></image>
+                <text class="choiceness-empty-text">暂无课程</text>
+            </view>
+        </view>
+    </view>
+</view>

@@ -1,0 +1,58 @@
+.group {
+    background-color: #f7f7f7;
+}
+
+.v {
+    padding-top: 14rpx;
+}
+
+.item {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 122rpx;
+    padding: 0 30rpx;
+    font-size: 32rpx;
+    color: #333;
+    background-color: #fff;
+}
+
+.item::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-bottom: 1px solid #eee;
+}
+
+.item.right-arr::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    right: 30rpx;
+    transform: translateY(-50%);
+    height: 40rpx;
+    width: 40rpx;
+    background: #fff url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACgAAAAoBAMAAAB+0KVeAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAYUExURUdwTJ+fn5qampqampubm5qampqampmZmQ2Ip/kAAAAHdFJOUwAQut00imvglRxvAAAAXUlEQVQoz2NgGNaAEZtgkACmGFu5IaagUHmxA6aR6uUmmEpFy8sxlTKEl5dg2sVaXp6AqTS9vASbq0oxBZmwCapjcT8TNudjUwj0pwAWb2I1EZt/FIkMZOzRMSwAAOPiEN3W5/zTAAAAAElFTkSuQmCC) no-repeat right center/40rpx 40rpx;
+    transition: background-color 0.24s;
+}
+
+.item .value {
+    font-size: 28rpx;
+    color: #666;
+}
+
+.logout {
+    height: 96rpx;
+    width: 678rpx;
+    margin: 110rpx auto 0;
+    line-height: 96rpx;
+    text-align: center;
+    font-size: 32rpx;
+    color: #333;
+    background: #f3f3f3;
+    border-radius: 14rpx;
+    transition: all 0.24s;
+}

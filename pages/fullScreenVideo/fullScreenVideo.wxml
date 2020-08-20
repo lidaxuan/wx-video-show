@@ -1,0 +1,48 @@
+<!--pages/fullScreenVideo/fullScreenVideo.wxml-->
+<!-- <text>pages/fullScreenVideo/fullScreenVideo.wxml</text> -->
+<login id="login" bind:onLoginSuccess="onLoginSuccess"></login>
+
+<wxs module="filter" src="../../utils/returnMTime.wxs"></wxs>
+
+<view class="fullScreen">
+    <header title="" class="header" />
+    <view class="box">
+        <video bindtimeupdate="timeupdate" id="video" bindfullscreenchange="fullScreen" src="{{courseInfo.video.transcodeUrl}}" autoplay show-center-play-btn="{{false}}" title="{{courseInfo.course.title}}" enable-play-gesture="true">
+        </video>
+
+        <view hidden="{{isFull}}" class="user flex flex-alignItems">
+            <view class="userBox">
+                <view class="userHeadBox">
+                    <image src="{{courseInfo.merchant.head}}" data-item="{{courseInfo}}" bindtap="goUserInfoBtn" class="head"></image>
+                </view>
+
+                <image src="/static/img/follow@2x.png" wx:if="{{!followFlag}}" data-item="{{courseInfo}}" bindtap="followBtn" class="followBtn"></image>
+                <view wx:if="{{followFlag}}" class="followBtnzhanwei"></view>
+
+                <image wx:if="{{!courseInfo.overThumb}}" bindtap="thumbsUpBtn" src="/static/img/noThumbsUp@2x.png" class="thumbsUp" alt="未点赞"></image>
+                <image wx:if="{{ courseInfo.overThumb}}" bindtap="thumbsUpBtn" src="/static/img/thumbsUp@2x.png" class="thumbsUp" alt="已点赞"></image>
+                <text class="thumbsUpNum">{{ courseInfo.operateCount.thumbCount <= 0 ? '点赞' : filter.filter.million(courseInfo.operateCount.thumbCount)}}</text>
+
+                <image wx:if="{{!courseInfo.overCollect}}" src="/static/img/noCollection@2x.png" bindtap="collectionBtn" class="CollectionBtn" alt="未收藏"></image>
+                <image wx:if="{{ courseInfo.overCollect}}" src="/static/img/Collection@2x.png" bindtap="collectionBtn" class="CollectionBtn" alt="已收藏"></image>
+                <text class="collectionNum">{{ courseInfo.operateCount.collectCount <= 0 ? '收藏' : filter.filter.million(courseInfo.operateCount.collectCount) }}</text>
+
+                <image src="/static/img/share@2x.png" class="shareBtn"></image>
+                <button open-type="share">1</button>
+            </view>
+        </view>
+        <image hidden="{{isFull}}" src="/static/img/fullScreen@2x.png" bindtap="fullBtn" class="fullScreenBtn"></image>
+
+        <!-- 话题 描述 -->
+        <view hidden="{{isFull}}" class="courseVideoInfo">
+            <view class="courseVideoInfoTop">
+                <view>
+                    <view class="businessName">@ {{ courseInfo.merchant.nick }} </view>
+                    <view class="courseTitile">{{ courseInfo.course.title }}</view>
+                </view>
+                <view wx:if="{{courseInfo.course.remark}}" class="courseIntroduction">{{ courseInfo.course.remark }}</view>
+            </view>
+            <view class="courseVideoInfoBottom"></view>
+        </view>
+    </view>
+</view>

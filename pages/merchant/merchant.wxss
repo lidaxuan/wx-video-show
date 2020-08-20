@@ -1,0 +1,172 @@
+.box {
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+}
+
+.merchant-top-bg {
+    position: relative;
+    height: 134rpx;
+    background: linear-gradient(270deg, rgba(254, 115, 88, 1) 0%, rgba(235, 70, 84, 1) 100%);
+}
+
+.merchant-iv-head {
+    position: absolute;
+    left: 20rpx;
+    top: 62rpx;
+    height: 160rpx;
+    width: 160rpx;
+    background-color: #fff;
+    border-radius: 100%;
+}
+
+.merchant-iv-head image {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    height: 140rpx;
+    width: 140rpx;
+    border-radius: 100%;
+}
+
+.merchant-view-name {
+    display: flex;
+    margin-top: 90rpx;
+    justify-content: space-between;
+    margin-left: 30rpx;
+    margin-right: 30rpx;
+    align-items: center;
+}
+
+.merchant-tv-name {
+    font-size: 34rpx;
+    color: #333;
+    max-width: 650rpx;
+}
+
+.merchant-bt-attention {
+    margin-bottom: 10rpx;
+    font-size: 28rpx;
+    color: #fff;
+    width: 140rpx;
+    height: 60rpx;
+    background: linear-gradient(222deg, rgba(253, 108, 88, 1) 0%, rgba(236, 72, 84, 1) 100%);
+    border-radius: 34px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.merchant-view-info {
+    margin-left: 30rpx;
+    display: flex;
+    margin-top: 20rpx;
+    flex-direction: row;
+    align-items: center;
+}
+
+.merchant-view-info image {
+    margin-right: 10rpx;
+}
+
+.merchant-tv-info {
+    margin-right: 30rpx;
+    font-size: 24rpx;
+    color: #333;
+    min-width: 104rpx;
+}
+
+.merchant-line {
+    margin: 30rpx;
+    height: 2rpx;
+    background-color: #eee;
+}
+
+.merchant-line-thick {
+    margin-top: 30rpx;
+    height: 14rpx;
+    background-color: #f7f7f7;
+}
+
+.merchant-tv-introduce {
+    font-size: 28rpx;
+    margin-left: 30rpx;
+    color: #333;
+}
+
+.merchant-tab-box {
+    padding-top: 30rpx;
+    text-align: center;
+    background-color: #fff;
+}
+
+.merchant-tab-fixed {
+    position: fixed;
+    width: 100%;
+    z-index: 3;
+}
+
+.merchant-tab-tab {
+    display: inline-block;
+    font-size: 26rpx;
+    color: #999;
+    padding-bottom: 20rpx;
+    background-color: #fff;
+    position: relative;
+    width: 33.3%;
+}
+
+.merchant-tab-active {
+    color: #333;
+}
+
+.merchant-tab-active::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: 6rpx;
+    transform: translateX(-50%);
+    height: 4rpx;
+    width: 24rpx;
+    background-color: #333;
+    border-radius: 4rpx;
+}
+
+.merchant-list-list {
+    display: none;
+    background-color: #fff;
+}
+
+.open-list {
+    padding-top: 30rpx;
+}
+
+.merchant-list-show {
+    display: block;
+}
+
+.merchant-list-box {
+    width: 100%;
+    height: 100%;
+    padding-bottom: 30rpx;
+}
+
+.choiceness-empty {
+    height: 400rpx;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    flex-direction: column;
+}
+
+.choiceness-empty-image {
+    width: 200rpx;
+    height: 200rpx;
+}
+
+.choiceness-empty-text {
+    font-size: 28rpx;
+    margin-top: 30rpx;
+    color: #ddd;
+}

@@ -1,0 +1,78 @@
+<wxs module="filter" src="../../utils/returnMTime.wxs"></wxs>
+
+<login id="login"></login>
+
+<header title="搜索" class="header"></header>
+<view class="search" style="padding-top:{{headerHeight}}px">
+    <!-- 搜索框 -->
+    <view class="input-box">
+        <view class="input">
+            <input confirm-type="search" placeholder="请输入课程名称" value="{{inputTxt}}" bindinput="input" bindconfirm="search"></input>
+            <view class="clear" wx:if="{{inputTxt != ''}}" bind:tap="clear"></view>
+        </view>
+        <view class="btn" wx:if="{{!showSearchResult}}" bind:tap="search">搜索</view>
+        <view class="btn" wx:if="{{showSearchResult}}" bind:tap="cancel">取消</view>
+    </view>
+    <!-- 搜索结果 -->
+    <view class="result" wx:if="{{showSearchResult}}">
+        <view class="result-list" wx:if="{{searchResult.length}}">
+            <view class="item" wx:for="{{searchResult}}" data-id="{{item.id}}" wx:key="item" data-type="{{item.cfType}}" data-click="0" bind:tap="toCourse">
+                <image lazy-load="true" class="cover" src="{{item.cover + '?x-oss-process=image/resize,w_200'}}" mode="aspectFill"></image>
+                <view class="intro">
+                    <view class="name">{{item.title}}</view>
+                    <view class="descrip">{{item.lessonCon}}节·{{item.totalPv}}人感兴趣
+                      <text class="price" wx:if="{{!isIos}}">{{item.price==0 ? '免费' : filter.filter.fixPrice(item.price)}}</text>
+                    </view>
+                </view>
+            </view>
+        </view>
+        <view class="no-data" wx:if="{{!searchResult.length}}">
+            <image src="/static/img/empty3.png"></image>
+            <text>没有相关的搜索结果</text>
+        </view>
+    </view>
+    <!-- 推荐内容 -->
+    <view class="default" wx:if="{{!showSearchResult}}">
+        <view class="interested">
+            <text class="title" wx:if="{{recommendedUsers.length}}">你可能感兴趣的商家</text>
+            <view class="list">
+                <view class="item" wx:for="{{recommendedUsers}}" wx:key="userItem">
+                    <view class="top">
+                        <image class="head" src="{{item.head}}" data-item="{{item}}" data-index="{{index}}" bindtap="userClick"></image>
+                        <text class="name">{{item.nick}}</text>
+                    </view>
+                    <view class="btn-follow" bindtap="focusClick" data-index="{{index}}" data-item="{{item}}" hover-class="active" hover-start-time="0" hover-stay-time="100">{{item.relation == 0 ? '关注' : '已关注'}}</view>
+                </view>
+            </view>
+        </view>
+        <!-- 课程列表 -->
+        <view class="course-list">
+            <view class="title-box">
+                <text class="title {{courseListTitieActiveIndex == 0 ? 'active' : ''}}" data-index="0" data-left="0" bind:tap="switchCourseList">精选课程</text>
+                <text class="title {{courseListTitieActiveIndex == 1 ? 'active' : ''}}" data-index="1" data-left="-100" bind:tap="switchCourseList">公开课程</text> </view>
+            <view class="swiper" wx:if="{{courseListTitieActiveIndex == 0}}">
+                <view class="list-box" style="left:{{0}}">
+                    <view class="list">
+                        <view class="item" wx:for="{{courseFeeList}}" wx:key="courseItem" data-id="{{item.id}}" data-type="{{item.cfType}}" data-click="1" bind:tap="toCourse">
+                            <view class="order">{{index + 1}}</view>
+                            <image lazy-load="true" class="cover" src="{{item.cover + '?x-oss-process=image/resize,w_200'}}" mode="aspectFill"></image>
+                            <view class="intro">{{item.title}}</view>
+                        </view>
+                    </view>
+                </view>
+            </view>
+            <view class="swiper" wx:if="{{courseListTitieActiveIndex == 1}}">
+                <view class="list-box" style="left:{{0}}">
+                    <view class="list">
+                        <view class="item" wx:for="{{courseFreeList}}" wx:key="courseItem" data-id="{{item.id}}" data-type="{{item.cfType}}" data-click="1" bind:tap="toCourse">
+                            <view class="order">{{index + 1}}</view>
+                            <image lazy-load="true" class="cover" src="{{item.cover + '?x-oss-process=image/resize,w_200'}}" mode="aspectFill"></image>
+                            <view class="intro">{{item.title}}</view>
+                        </view>
+                    </view>
+                </view>
+            </view>
+        </view>
+    </view>
+</view>
+<login></login>

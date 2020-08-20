@@ -1,0 +1,19 @@
+page {
+    height: 100%;
+    width: 100%;
+    overflow-x: hidden;
+}
+
+.page-header {
+    z-index: 999;
+    position: fixed;
+    left: 0;
+    top: 0;
+    right: 0;
+}
+
+.page-container {
+    z-index: auto;
+    overflow-y: auto;
+    box-sizing: border-box;
+}

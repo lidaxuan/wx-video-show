@@ -1,0 +1,41 @@
+<login></login>
+<header title="{{userInfo.nick}}" class="page-header header"></header>
+<view class="page-container my-box" style="padding-top:{{headerHeight}}px">
+    <view class="profile-box">
+        <view class="head">
+            <image src="{{userInfo.head}}"></image>
+        </view>
+        <view class="btn-follow" bind:tap="follow">{{isFollowed ? "已关注" : "关注"}}</view>
+        <view class="name">{{tools.filter.fuzzyPhoneNumber(userInfo.nick)}}</view>
+        <view class="info">
+            <text wx:if="{{userInfo.authTitle}}" class="auth type{{userInfo.authType}}">{{userInfo.authTitle}}</text>
+            <text class="addr type{{userInfo.gender ? userInfo.gender : 1}} {{!userInfo.area ? 'unknown' : ''}}">{{userInfo.area ? userInfo.area : "地区 未知"}}</text>
+        </view>
+        <view class="intro" wx:if="{{userInfo.slogan}}">{{userInfo.slogan}}</view>
+    </view>
+    <view class="tab-box">
+        <text class="tab {{showList == 0 ? 'active' : ''}}" data-index="0" bind:tap="switchTab">Ta的点赞</text>
+        <text class="tab {{showList == 1 ? 'active' : ''}}" data-index="1" bind:tap="switchTab">Ta的关注</text>
+    </view>
+    <view class="tab-box fixed {{showFixedTab}}" style="top:{{headerHeight}}px">
+        <text class="tab {{showList == 0 ? 'active' : ''}}" data-index="0" bind:tap="switchTab">Ta的点赞</text>
+        <text class="tab {{showList == 1 ? 'active' : ''}}" data-index="1" bind:tap="switchTab">Ta的关注</text>
+    </view>
+    <view class="list-box">
+        <view class="list {{showList == 0 ? 'show' : ''}}">
+            <courseList from-type="friend" wx:if="{{likeList.length}}" list="{{likeList}}"></courseList>
+            <view wx:else class="empty">
+                <image src="/static/img/empty3.png"></image>
+                <text>暂无点赞的课程</text>
+            </view>
+        </view>
+        <view class="list {{showList == 1 ? 'show' : ''}}">
+            <followList wx:if="{{followList.length}}" list="{{followList}}"></followList>
+            <view wx:else class="empty">
+                <image src="/static/img/empty3.png"></image>
+                <text>暂无关注的用户</text>
+            </view>
+        </view>
+    </view>
+</view>
+<wxs module="tools" src="../../../utils/returnMTime.wxs"></wxs>

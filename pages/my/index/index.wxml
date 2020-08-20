@@ -1,0 +1,92 @@
+<login id="login" bind:onLoginSuccess="init"></login>
+<search class="page-header header"></search>
+<view class="page-container my-box" style="padding-top:{{headerHeight}}px">
+    <view class="profile-box">
+        <view class="head">
+            <image wx:if="{{userInfo != null}}" src="{{userInfo.head}}"></image>
+            <image wx:if="{{userInfo == null}}" bind:tap="login" src="/static/img/unlogin.png"></image>
+            <text wx:if="{{userInfo == null}}" bind:tap="login" class="unlogin">点击登录</text>
+        </view>
+        <view wx:if="{{userInfo != null}}" class="btn-set" bind:tap='toSetup'>
+            <image src="/static/img/set.png"></image>
+        </view>
+        <view class="name">{{userInfo.nick}}</view>
+        <view wx:if="{{userInfo != null}}" class="merchant-view-info">
+            <view class="authTypeImg">
+                <image src="/static/img/identity@2x.png" wx:if="{{userInfo.authType==1}}" mode="scaleToFill" />
+                <image src="/static/img/Daren@2x.png" wx:elif="{{userInfo.authType==2}}" mode="scaleToFill" />
+                <image src="/static/img/business@2x.png" wx:elif="{{userInfo.authType==3}}" mode="scaleToFill" />
+            </view>
+
+            <text class="merchant-tv-info" wx:if="{{userInfo.authTitle}}">{{userInfo.authTitle}}</text>
+            <image style="width:26rpx; height:26rpx;" mode="scaleToFill" src="/static/img/icon_common_woman.png" wx:if="{{userInfo.gender==2}}" />
+            <image style="width:26rpx; height:26rpx;" mode="scaleToFill" src="/static/img/icon_common_man.png" wx:else />
+            <text class="merchant-tv-info">{{userInfo.area?userInfo.area:'地区 未知'}}</text>
+        </view>
+        <view class="intro" wx:if="{{userInfo.slogan}}">{{userInfo.slogan}}</view>
+        <view class="achieve">
+            <view class="item" bind:tap="openPop">
+                <text class="value">{{getThumbCount}}</text>
+                <text class="type">获赞</text>
+            </view>
+            <view class="item" bind:tap="myCouponTap" wx:if="{{!isIPhone}}">
+                <text class="value" >{{couponCount ? couponCount : 0}}</text>
+                <text class="type">优惠券(张)</text>
+            </view>
+            <view class="item" bind:tap="toInvited">
+                <text class="value" >{{lowerCount}}</text>
+                <text class="type">邀请好友(人)</text>
+            </view>
+        </view>
+        <!-- <view class="my-invite" bind:tap="toInvited">
+            <image class="icon-friend" src="/static/img/friend.png"></image>
+            <text>我邀请的好友</text>
+            <view class="r">
+                <text>{{lowerCount}}</text>
+                <text>人</text>
+            </view>
+        </view> -->
+    </view>
+    <view class="tab-box">
+        <text class="tab {{showList == 0 ? 'active' : ''}}" data-index="0" bind:tap="switchTab">我的点赞</text>
+        <text class="tab {{showList == 1 ? 'active' : ''}}" data-index="1" bind:tap="switchTab">我的收藏</text>
+        <text class="tab {{showList == 2 ? 'active' : ''}}" data-index="2" bind:tap="switchTab">我的关注</text>
+    </view>
+    <view class="tab-box fixed {{showFixedTab}}" style="top:{{headerHeight}}px; padding: 0;">
+        <text class="tab {{showList == 0 ? 'active' : ''}}" data-index="0" bind:tap="switchTab">我的点赞</text>
+        <text class="tab {{showList == 1 ? 'active' : ''}}" data-index="1" bind:tap="switchTab">我的收藏</text>
+        <text class="tab {{showList == 2 ? 'active' : ''}}" data-index="2" bind:tap="switchTab">我的关注</text>
+    </view>
+    <view class="list-box">
+        <view class="list {{showList == 0 ? 'show' : ''}}">
+            <courseList from-type="my" wx:if="{{likeList.length}}" list="{{likeList}}"></courseList>
+            <view wx:else class="empty">
+                <image src="/static/img/empty3.png"></image>
+                <text>暂无点赞的课程，快去给喜欢的课程点赞</text>
+            </view>
+        </view>
+        <view class="list {{showList == 1 ? 'show' : ''}}">
+            <courseList from-type="my" wx:if="{{favList.length}}" list="{{favList}}"></courseList>
+            <view wx:else class="empty">
+                <image src="/static/img/empty2.png"></image>
+                <text>暂无收藏的课程，快去把课程收藏起来</text>
+            </view>
+        </view>
+        <view class="list {{showList == 2 ? 'show' : ''}}">
+            <followList wx:if="{{followList.length}}" list="{{followList}}"></followList>
+            <view wx:else class="empty">
+                <image src="/static/img/empty3.png"></image>
+                <text>暂无关注的用户，快去关注好友</text>
+            </view>
+        </view>
+    </view>
+</view>
+<view class="like-box-bg {{showPopBg}}"></view>
+<view class="like-box {{showPop}}">
+    <image class="like" src="/static/img/like.png"></image>
+    <view>
+        {{userInfo.nick}}获得
+        <text>{{getThumbCount}}</text> 个赞
+    </view>
+    <image class="close" bind:tap="closePop" src="/static/img/close.png"></image>
+</view>

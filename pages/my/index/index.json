@@ -1,0 +1,11 @@
+{
+
+    "usingComponents": {
+        "login": "/components/login/index",
+        "search": "/components/search/index",
+        "courseList": "/components/courseList/index",
+        "followList": "followList/index"
+    },
+    "enablePullDownRefresh":true,
+    "backgroundTextStyle":"dark"
+}

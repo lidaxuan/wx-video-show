@@ -1,0 +1,542 @@
+/* pages/classification/classification.wxss */
+
+.classification {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    /* height: 100%; */
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    background: #fafafa;
+}
+
+.container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    /* height: 100%; */
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    background: #fafafa;
+}
+
+.tab-wrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 80rpx;
+    background: linear-gradient(270deg, rgba(254, 115, 88, 1) 0%, rgba(235, 70, 84, 1) 100%);
+}
+.tab-wrapper .active {
+    transform:  rotate(-180deg);
+    transition: all 0.3s ease-in;
+}
+
+.tab-wrapper .noactive {
+    transform:  rotate(0);
+    transition: all 0.3s ease-out;
+}
+
+.tab {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+    font-size: 30rpx;
+    color: rgb(255, 255, 255);
+    text-align: center;
+    height: 100%;
+    font-weight: 600;
+}
+
+.tab-active {
+    position: relative;
+}
+
+.tab-active .bobr {
+    display: inline-block;
+    position: absolute;
+    bottom: 2rpx;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    height: 3px;
+    width: 14px;
+    background-color: #fff;
+    border-radius: 4px;
+}
+
+.loadMore {
+    width:  64rpx;
+    height: 64rpx;
+    margin-right: 20rpx;
+    /* margin-bottom: -10rpx; */
+    /* background: pink; */
+}
+
+page {
+    width: 100%;
+    height: 100%;
+}
+
+.content-wrapper {
+    width: 100%;
+    height: 100%;
+}
+
+/* ------------------------------------------------------------------------------- */
+
+.item-box .video-image-box {
+    height: 420rpx;
+    width: 100%;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    background-position-x: 30rpx;
+    position: relative;
+}
+
+.item-box .video-cover-box {
+    height: 100%;
+    width: 100%;
+    background: #000;
+    text-align: center;
+}
+
+.item-box .video-image-box .video-cover-box .video-image {
+    height: 100%;
+    width: 100%;
+}
+
+.item-box .video {
+    height: 400rpx;
+    width: 100%;
+    margin: 0 30rpx 0 0;
+    position: relative;
+}
+
+.item-box .video-image-box .video-image-play {
+    position: absolute;
+    width:  80rpx;
+    height: 80rpx;
+    top: calc(50% - 40rpx);
+    left: calc(50% - 40rpx);
+    z-index: 8;
+}
+
+/* -------------------------------- */
+
+.freeVideoBox {
+    position: relative;
+    width: 100%;
+}
+
+.freeVideoPanel {
+    position: relative;
+    width: 100%;
+    height: 420rpx;
+}
+
+.freeVideoPanel .allBack {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.2);
+}
+
+.placeHolderImg {
+    width: 100%;
+    height: 420rpx;
+    object-fit: contain;
+}
+
+.sharePanel {
+    padding: 20rpx 30rpx;
+    background-color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.userInfoBox {
+    display: flex;
+    align-items: center;
+}
+
+.userInfoBoxHead {
+    position: relative;
+    width: 74rpx;
+    height: 74rpx;
+}
+
+.userInfoBoxHead .userInfoBoxHeadSrc {
+    width: 74rpx;
+    height: 74rpx;
+    border-radius: 50%;
+}
+
+.userInfoBoxHead .authState {
+    position: absolute;
+    width: 30rpx;
+    height: 30rpx;
+    bottom: 0;
+    right: 0;
+    z-index: 6;
+}
+
+.shopsName {
+    width: 260rpx;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    color: #333;
+    font-size: 28rpx;
+    margin-left: 20rpx;
+}
+
+/* 未关注 */
+
+.concerned {
+    color: #dbdbdb;
+    font-size: 26rpx;
+    border-left: 2rpx solid #eee;
+    padding-left: 8rpx;
+}
+
+/* 已关注 */
+
+.Unconcerned {
+    color: #eb4654;
+    font-size: 26rpx;
+    border-left: 2rpx solid #eee;
+    padding-left: 8rpx;
+}
+
+.shareButtonBox {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 26rpx;
+    color: #333;
+}
+
+.shareButtonBox .imgSize {
+    width: 36rpx;
+    height: 34rpx;
+    margin-right: 56rpx;
+}
+
+.shareButtonBox text {
+    font-size: 18rpx;
+    color: #666;
+}
+
+/* 关注数 */
+
+.shareButtonBox .followNum {
+    position: absolute;
+    right: 160rpx;
+    top: 5rpx;
+}
+
+/* 点赞数 */
+
+.shareButtonBox .thumbsUpNum {
+    position: absolute;
+    right: 70rpx;
+    top: 5rpx;
+}
+
+/* 分享数 */
+
+.shareButtonBox .shareNum {
+    position: absolute;
+    right: -10rpx;
+    top: 5rpx;
+}
+
+.shareButtonBox .shareBtn {
+    margin: 0;
+    padding: 0;
+    height: auto;
+    background: #fff;
+    margin-top: 5rpx;
+    line-height: auto;
+}
+
+.shareButtonBox .shareButton {
+    width: 30rpx;
+    height: 30rpx;
+    margin-right: 10rpx;
+    background-size: contain;
+}
+
+.shareButtonBox .shareTips {
+    height: 38rpx;
+    padding: 0;
+    font-size: 26rpx;
+    background-color: transparent;
+    border: 1rpx solid transparent;
+    line-height: 35rpx;
+}
+
+button::after {
+    border: 0;
+    border-radius: 0;
+}
+
+.getPlayResult image {
+    position: absolute;
+    width: 80rpx;
+    height: 80rpx;
+    background-size: cover;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+}
+
+.freeVideoPanel .palyNum {
+    z-index: 10;
+    color: rgb(255, 255, 255);
+    left: 30rpx;
+    position: absolute;
+    bottom: 25rpx;
+    font-size: 26rpx;
+    text-shadow: 1rpx 2rpx #bbb;
+}
+
+.timeLength {
+    position: absolute;
+    bottom: 22rpx;
+    right: 30rpx;
+    padding: 7rpx 18rpx;
+    border-radius: 24rpx;
+    background: rgba(0, 0, 0, 0.5);
+    color: #fff;
+    font-size: 24rpx;
+    z-index: 10;
+}
+
+.videoTitle {
+    position: absolute;
+    max-width: 700rpx;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    top: 18rpx;
+    left: 30rpx;
+    color: #fff;
+    font-size: 38rpx;
+    z-index: 10;
+    font-weight: 700;
+}
+
+.item-box .topbgblack {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 10;
+    width: 100%;
+    height: 160rpx;
+}
+
+.videoTeacher {
+    position: absolute;
+    max-width: 400rpx;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    top: 68rpx;
+    left: 30rpx;
+    color: #fff;
+    font-size: 24rpx;
+    z-index: 10;
+}
+
+.BeforPreviewHand {
+    width: 8rpx;
+    height: 8rpx;
+    background-size: cover;
+}
+
+.line {
+    width: 100%;
+    height: 16rpx;
+    background-color: #f7f7f7;
+}
+
+/*模态框*/
+
+.modals {
+    position: fixed;
+    z-index: 10;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+
+.modals .modals-cancel {
+    position: absolute;
+    z-index: 12;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modals .bottom-dialog-body {
+    position: absolute;
+    z-index: 10001;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 30rpx;
+    height: 300rpx;
+    /* background-color: #fff; */
+}
+
+/*动画前初始位置*/
+
+.modals .bottom-pos {
+    -webkit-transform: translateY(100%);
+    transform: translateY(100%);
+}
+
+.modals .btn {
+    background: rgba(255, 255, 255, 0.98);
+    color: #333;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 105rpx;
+    justify-content: center;
+    font-size: 32rpx;
+    border-radius: 0;
+}
+
+.modals .sendFriends {
+    border-bottom: 0.1rpx solid #cacaca;
+}
+
+.modals .borderCl {
+    border-radius: 12rpx;
+    overflow: hidden;
+}
+
+.modals .cancel {
+    margin: 16rpx 0;
+}
+
+/* 海報 */
+
+.container {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 100000;
+    /* background: pink; */
+}
+
+.container .share-image {
+    /* background: green; */
+    margin: 0 auto;
+    text-align: center;
+    margin-top: 230rpx;
+    width: 650rpx;
+    height: 720rpx;
+    /* background: pink; *//* padding: 1px; */
+}
+
+.container .savelacally {
+    position: absolute;
+    left: 50%;
+    bottom: 5%;
+    transform: translate(-50%, -50%);
+    width: 254rpx;
+    height: 90rpx;
+    line-height: 90rpx;
+    background: linear-gradient(360deg, rgba(254, 145, 95, 1) 0%, rgba(254, 182, 126, 1) 100%);
+    border-radius: 50rpx;
+    font-size: 32rpx;
+    color: #fff;
+}
+
+/* ---- 顶部下拉框 -------------------------------------------------- */
+
+.downBox {
+    position: fixed;
+    top: 0;
+    /* top: 100%; */
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgb(0, 0, 0, 0.5);
+    z-index: 20;
+    /* transition: all 1s ease; */
+    overflow: hidden;
+}
+
+.downBox .downBoxListBox {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    background: #fff;
+    padding: 30rpx 0 30rpx 0;
+}
+
+.downBox .downBoxListBox .item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background:#F6F6F6;
+    border-radius: 8rpx;
+    padding: 18rpx 34rpx;
+    margin: 0 0 18rpx 18rpx;
+    font-size: 24rpx;
+    color: #333;
+    /* margin-bottom: 18rpx; */
+}
+/* 
+.hide{
+    height: 0;
+} */
+
+/* .show{
+    height: 100%;
+} */
+@keyframes slidedown{
+    from {
+        height: 0;
+    }
+    to {
+        height: 100%;
+    }
+}
+
+@keyframes slideup{
+    from {
+        height: 100%;
+    }
+    to {
+        height: 0;
+    }
+}

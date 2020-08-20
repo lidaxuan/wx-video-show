@@ -1,0 +1,148 @@
+page {
+  background-color: #f7f7f7;
+}
+
+.coupon-box {
+  overflow-y: auto;
+  /* height: 100%; */
+  box-sizing: border-box;
+}
+
+.tab-box {
+  z-index: 1;
+  position: fixed;
+  left: 0;
+  right: 0;
+  height: 80rpx;
+  text-align: center;
+  background-color: #fff;
+  box-shadow: 0 0 2rpx 0 rgba(0, 0, 0, 0.1);
+}
+
+.tab-box .tab {
+  display: inline-block;
+  height: 100%;
+  width: 130rpx;
+  line-height: 80rpx;
+  font-size: 26rpx;
+  color: #999;
+}
+
+.tab-box .tab.active {
+  position: relative;
+  color: #333;
+}
+
+.tab-box .tab.active::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  bottom: 6rpx;
+  transform: translateX(-50%);
+  height: 4rpx;
+  width: 20rpx;
+  background-color: #333;
+  border-radius: 2rpx;
+}
+
+.coupon-list {
+  margin-top: 100rpx;
+  background-color: #f7f7f7;
+}
+
+.coupon-list .item {
+  padding: 20rpx;
+  margin-top: 20rpx;
+  background-color: #fff;
+}
+
+.coupon-list .title {
+  display: flex;
+  align-items: center;
+  padding: 10rpx 0 20rpx;
+}
+.coupon-list .title .head {
+  position: relative;
+  height: 70rpx;
+  width: 70rpx;
+}
+.coupon-list .title .avatar {
+  height: 70rpx;
+  width: 70rpx;
+  border-radius: 100%;
+}
+.coupon-list .title .authState {
+    position: absolute;
+    width: 24rpx;
+    height: 24rpx;
+    bottom: 0;
+    right: 0;
+}
+
+.coupon-list .title .name {
+  flex: auto;
+  width: 30rpx;
+  padding-left: 20rpx;
+  padding-right: 20rpx;
+  font-size: 28rpx;
+  color: #333;
+  word-break: break-all;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.coupon-list .title .btn-to-store {
+  position: relative;
+  height: 50rpx;
+  width: 100rpx;
+  line-height: 50rpx;
+  text-align: center;
+  font-size: 24rpx;
+  color: #333;
+  transition: all 0.24s;
+}
+
+.coupon-list .title .btn-to-store::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 200%;
+  width: 200%;
+  border: 1px solid #ddd;
+  border-radius: 50rpx;
+  transform-origin: 0 0;
+  transform: scale(0.5);
+  transition: all 0.24s;
+}
+
+.coupon-list .title .btn-to-store.hover {
+  color: #000;
+}
+
+.coupon-list .title .btn-to-store.hover::before {
+  border-color: #aaa;
+}
+
+
+/* 占位图 */
+.choiceness-empty {
+    height: 400rpx;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    flex-direction: column;
+}
+
+.choiceness-empty-image {
+    width: 200rpx;
+    height: 200rpx;
+}
+
+.choiceness-empty-text {
+    font-size: 28rpx;
+    margin-top: 30rpx;
+    color: #999;
+}

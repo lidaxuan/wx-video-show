@@ -1,0 +1,78 @@
+<login id="login" bind:onLoginSuccess="onLoginSuccess"></login>
+<!-- <search class="search"></search> -->
+<!--index.wxml-->
+<!-- 引入.wxs文件 src为相对路径，module指定当前模块的名称 -->
+<wxs module="filter" src="../../utils/returnMTime.wxs"></wxs>
+
+
+<view class='container'>
+    <search class="search"></search>
+    <view class='tab-wrapper'>
+        <view id='popularRecommendation' class='tab-left {{currentTab === 0 ? "tab-active":""}}' bindtap='switchTab'>热门推荐
+            <text class="bobr"></text>
+        </view>
+        <view id='selectedCourse' class='tab-center {{currentTab === 1 ? "tab-active" : ""}}' bindtap='switchTab'>精选课程
+            <text class="bobr"></text>
+        </view>
+        <view id='myCourseRack' class='tab-center {{currentTab === 2 ? "tab-active" : ""}}' bindtap='switchTab'>我的课架
+            <text class="bobr"></text>
+        </view>
+    </view>
+</view>
+
+<view wx:if='{{currentTab === 0}}' style="padding-top: {{paddingTop}}px;" class="box">
+    <view class='content-wrapper ' id="popularRecommendation">
+        <swiper vertical="{{true}}" circular="{{true}}" bindchange="changeItem">
+            <swiper-item wx:for="{{swiperData}}" wx:for-index="index" wx:key="item" item-id="{{index}}">
+                <video binderror="binderror" bindtimeupdate="timeupdate" show-center-play-btn="{{false}}" title="{{item.course.title}}" id="myVideo{{index}}" bindfullscreenchange="fullScreen" src="{{item.video.transcodeUrl}}"
+                    custom-cache="{{true}}" controls="{{true}}"></video>
+                <!-- 用户 -->
+                <view hidden="{{isFull}}" class="user flex flex-alignItems">
+                    <view class="userBox">
+                        <view class="userHeadBox">
+                            <image lazy-load="true" src="{{item.merchant.head + '?x-oss-process=image/resize,w_100'}}" data-item="{{item}}" bindtap="goUserInfoBtn" class="head"></image>
+                        </view>
+
+                        <image src="/static/img/follow@2x.png" wx:if="{{item.merchant.relation == undefind || item.merchant.relation<=0}}" data-item="{{item}}" bindtap="followBtn" class="followBtn"></image>
+                        <!-- <view wx:if="{{!item.merchant.relation>0}}" class="followBtnzhanwei"></view> -->
+                        <image wx:if="{{!item.course.thumb}}" data-item="{{item}}" bindtap="thumbsUpBtn" src="/static/img/noThumbsUp@2x.png" class="thumbsUp" alt="未点赞"></image>
+                        <image wx:if="{{item.course.thumb}}"  data-item="{{item}}" bindtap="thumbsUpBtn" src="/static/img/thumbsUp@2x.png" class="thumbsUp" alt="已点赞"></image>
+                        <text class="thumbsUpNum">{{ item.course.thumbCount <= 0 ? '点赞' : filter.filter.million(item.course.thumbCount)}}</text>
+
+                        <image wx:if="{{!item.course.collect}}" src="/static/img/noCollection@2x.png" data-item="{{item}}" bindtap="collectionBtn" class="CollectionBtn" alt="未收藏"></image>
+                        <image wx:if="{{item.course.collect}}"  src="/static/img/Collection@2x.png"   data-item="{{item}}" bindtap="collectionBtn" class="CollectionBtn" alt="已收藏"></image>
+                        <text class="collectionNum">{{ item.course.collectCount <= 0 ? '收藏' : filter.filter.million(item.course.collectCount) }}</text>
+
+                        <image src="/static/img/share@2x.png" class="shareBtn"></image>
+                        <button data-item="{{item}}" open-type="share">1</button>
+                    </view>
+                </view>
+                <image hidden="{{isFull}}" src="/static/img/fullScreen@2x.png" bindtap="fullBtn" class="fullScreenBtn"></image>
+
+                <!-- 话题 描述 -->
+                <view hidden="{{isFull}}" class="courseVideoInfo">
+                    <view class="courseVideoInfoTop">
+                        <view>
+                            <view class="businessName">@ {{ item.merchant.nick }} </view>
+                            <view class="courseTitile">{{ item.course.title }}</view>
+                        </view>
+                        <view wx:if="{{item.course.remark}}" class="courseIntroduction">{{ item.course.remark }}</view>
+                    </view>
+                    <view class="courseVideoInfoBottom">
+                        <view wx:if="{{item.course.cfType != 2}}" style="background: transparent; color:transparent" class="lookMoreBtn">查看更多</view>
+                        <view wx:if="{{item.course.cfType == 2}}" data-item="{{item}}" bindtap="lookMoreBtn" class="lookMoreBtn">查看更多</view>
+                    </view>
+                </view>
+            </swiper-item>
+        </swiper>
+    </view>
+</view>
+
+<view style="padding-top: {{paddingTop}}px;">
+    <view class='content-wrapper' wx:if='{{currentTab === 1}}'>
+        <selectedCourse id="idMainCourse" />
+    </view>
+    <view class='content-wrapper' wx:if='{{currentTab === 2}}'>
+        <myCourseRack id="mycourse" />
+    </view>
+</view>

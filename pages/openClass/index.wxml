@@ -1,0 +1,12 @@
+<login id="login" bind:onLoginSuccess="onLoginSuccess"></login>
+
+<header class="page-header" title="公开课"></header>
+<scroll-view bindscrolltolower="scrolltolower" style="height: 100%" scroll-y="true" bindscroll="scrolltoupper" scroll-top='{{bindScrollTop}}'>
+  <view style="padding-top: {{paddingTop}}px;" wx:if="{{videoList.length}}">
+    <videoList id="videoList" bind:videoPlay="videoPlay" bind:screenChange="screenChange"  getfollowIdArr="{{getfollowIdArr}}" dataList="{{videoList}}"></videoList>
+  </view>
+</scroll-view>
+<view class="choiceness-empty" wx:if="{{noData}}">
+  <image class="choiceness-empty-image" src="/static/img/icon_course_list_empty.png"></image>
+  <text class="choiceness-empty-text">暂无课程</text>
+</view>

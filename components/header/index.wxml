@@ -1,0 +1,7 @@
+<view class="search" style="padding-top:{{paddingTop}}px">
+    <view class="inner">
+        <view class="btn nback" bind:tap="back" wx:if="{{hideBack != 1}}">返回</view>
+        <view class="btn home" bind:tap="home" wx:if="{{hideHome != 1}}">主页</view>
+        <text class="title" style="width:{{width}}px">{{title}}</text>
+    </view>
+</view>

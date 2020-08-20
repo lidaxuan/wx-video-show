@@ -1,0 +1,15 @@
+<!--pages/index/myCourseRack/myCourseRack.wxml-->
+<!-- <text>pages/index/myCourseRack/myCourseRack.wxml</text> -->
+<view class="root">
+  <view class="top_view" wx:if="{{showplaceholder}}">
+    <image src="/static/img/nodata_placeholder.png" class="h_image"></image>
+    <view class="desc">~课架空空如也~</view>
+    <view class="desc_title" wx:if="{{courseData.length>0}}">热门推荐</view>
+  </view>
+  <view>
+    <courseList list="{{courseData}}" class="courseList"></courseList>
+  </view>
+  <view>
+    <selectedCourse wx:if="{{!showplaceholder}}" list="{{mycourseList}}" from-my-course="{{true}}"> </selectedCourse>
+  </view>
+</view>

@@ -1,0 +1,8 @@
+{
+    "component": true,
+    "usingComponents": {
+        "login": "/components/login/index",
+        "search": "/components/search/index",
+        "videoList": "/components/videoList/videoList"
+    }
+}

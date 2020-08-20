@@ -1,0 +1,73 @@
+.item {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.item::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-bottom: 1px solid #f1f1f1;
+    transform: scaleY(0.5);
+}
+
+.img-box {
+    flex: none;
+    height: 80rpx;
+    width: 80rpx;
+    padding: 30rpx;
+}
+
+.img-box .inner {
+    position: relative;
+    height: 100%;
+    width: 100%;
+}
+
+.img-box .avatar {
+    height: 100%;
+    width: 100%;
+    margin-right: 20rpx;
+    border-radius: 50%;
+}
+
+.img-box .v {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    height: 28rpx;
+    width: 28rpx;
+}
+
+.info-box {
+    padding-right: 30rpx;
+}
+
+.info-box text {
+    display: block;
+}
+
+.name {
+    font-size: 28rpx;
+    color: #222;
+}
+
+.auth-info {
+    font-size: 24rpx;
+    color: #999;
+}
+
+.count-box {
+    padding-right: 30rpx;
+    margin-left: auto;
+    font-size: 32rpx;
+    color: #222;
+}
+
+.count-box::after {
+    content: '人';
+    font-size: 20rpx;
+}

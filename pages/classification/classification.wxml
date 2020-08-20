@@ -1,0 +1,32 @@
+<!--pages/classification/classification.wxml-->
+<!-- <text>pages/classification/classification.wxml</text> -->
+<login id="login" bind:onLoginSuccess="onLoginSuccess"></login>
+<!-- 引入.wxs文件 src为相对路径，module指定当前模块的名称 -->
+<wxs module="filter" src="../../utils/returnMTime.wxs"></wxs>
+
+
+<view class='classification' style="z-index: 10000">
+    <search class="search"></search>
+    <view class='tab-wrapper'>
+        <view id="{{item.id}}" data-index="{{index}}" data-item="{{item}}" wx:for="{{tabListL}}" wx:key="index" wx:if="{{index <= 3}}" class='tab {{currentTabActive === index ? "tab-active":""}}' bindtap='tipItemBtn'>
+            {{item.name}}
+            <text class="bobr"></text>
+        </view>
+        <image bindtap="downLoadMore" class="loadMore bar {{ hideDownBox ? 'active' : 'noactive' }}" src="/static/img/downBoxBtn@2x.png"></image>
+    </view>
+</view>
+
+<scroll-view bindscrolltolower="scrolltolower" style="height: 100%" scroll-y="true" scroll-top='{{topNum}}' bindscroll="scrolltoupper">
+    <view style="padding-top: {{paddingTop}}px;height: 100%" class="containerr">
+        <videoList bind:videoPlay="videoPlay" bind:screenChange="screenChange" id="videoList" type="1" getfollowIdArr="{{getfollowIdArr}}" dataList="{{videoList}}"></videoList>
+    </view>
+</scroll-view>
+
+
+
+<!-- 下拉框弹出 -->
+<view catchtouchmove="return" bindtap="hideDownBox" hidden="{{!hideDownBox}}" class="downBox {{hideDownBox?'show':'hide'}}" style="padding-top: {{paddingTop}}px;">
+    <view class="downBoxListBox">
+        <view class="item " wx:for="{{tabListL}}" wx:key="item" data-index="{{index}}" data-item="{{item}}" wx:if="{{index > 3}}" bindtap="tipItemBtn">{{item.name}}</view>
+    </view>
+</view>

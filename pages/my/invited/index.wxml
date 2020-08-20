@@ -1,0 +1,8 @@
+<header class="header" title="{{title}}"></header>
+<view style="padding-top:{{headerHeight}}px">
+    <followList wx:if="{{list.length}}" list="{{list}}" class="list {{showList == 2 ? 'show' : ''}}"></followList>
+    <view wx:else class="empty">
+        <image src="/static/img/empty3.png"></image>
+        <text>{{emptymsg}}</text>
+    </view>
+</view>

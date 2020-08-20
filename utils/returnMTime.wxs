@@ -1,0 +1,140 @@
+var filter = {
+    returnMTime: function(m) {
+        if (m < 10) {
+            m = "00: 0" + m;
+        } else if (m < 9 && m < 60) {
+            m = "00:" + m;
+        } else if (m % 60 == 0) {
+            m = m / 60 + ":00";
+        } else {
+            // m = parseInt(m / 60) + ":" + (m % 60);
+            var mm = (parseInt(m / 60) <= 9 ? '0' + parseInt(m / 60) : parseInt(m / 60));
+            var ss = ((m % 60) <= 9 ? '0' + (m % 60) : (m % 60));
+            // (parseInt(m / 60) <= 9 ? '0' + parseInt(m / 60) : parseInt(m / 60)) + ":" + 
+                // console.log(((m % 60) <= 9 ? '0' + (m % 60) : (m % 60)))
+                m = mm +':' + ss
+        }
+        return m;
+    },
+    ///倒计时 time:毫秒级时间戳
+    hmsTime: function(time) {
+        time = Math.floor(time / 1000)
+        var h = parseInt(time / 3600)
+        var m = parseInt(time % 3600 / 60)
+        var s = time % 3600 % 60
+        return [h, m, s].map(formatNumber).join(':')
+    },
+    saveData: function(data, num) {
+        return data.split(':')[num];
+    },
+    million: function(value) { //过万处理
+        var num;
+        if (value > 9999) { //大于9999显示x.xx万
+            num = (Math.floor(value / 100) / 100) + 'W';
+        } else if (value <= 9999 && value > -9999) {
+            num = value
+        } else if (value < -9999) { //小于-9999显示-x.xx万
+            num = -(Math.floor(Math.abs(value) / 1000) / 10) + 'W'
+        }
+        return num;
+    },
+    subStr: function(str, findex, lindex) { //截取字符串
+        if (!str) return
+        return str.substring(findex, lindex);
+    },
+    splitStr: function(str, condition) { //切割字符串
+        if (!str) return
+        return str.split(condition);
+    },
+    toFix: function(value, number) { //value原数 number保留个数
+        if (value == null) return
+        return value.toFixed(number) //此处2为保留两位小数
+    },
+    formatTime: function(timestamp, type) {
+        var date = getDate(timestamp)
+        var year = date.getFullYear()
+        var month = date.getMonth() + 1
+        var day = date.getDate()
+        var hour = date.getHours()
+        var minute = date.getMinutes()
+        var second = date.getSeconds()
+
+    switch (type) { //自由定义
+      case 1: //YYYY-MM-DD hh:mm
+        return [year, month, day].map(formatNumber).join('-') + ' ' + [hour, minute].map(formatNumber).join(':')
+        break;
+      case 2: // HH:mm:ss
+        {
+          return [hour, minute, second].map(formatNumber).join(':')
+        }
+        break;
+      case 3: // YYYY-MM-DD
+        {
+          return [year, month, day].map(formatNumber).join('-')
+        }
+        break;
+      default: //默认 YYYY-MM-DD hh:mm:ss
+        return [year, month, day].map(formatNumber).join('-') + ' ' + [hour, minute, second].map(formatNumber).join(':')
+    }
+  },
+  replaceAll: function(str, passive = '课程', replaceWith = '视频') {
+    // if (str) {
+    //   return str.replace(passive, replaceWith);
+    // }
+    return str
+  },
+
+  fixPrice: function(money) { //金额保存两位
+    if (!money) return;
+    return money.toFixed(2);
+  },
+
+  timestampToTime: function(timestamp) {
+    var date = getDate(timestamp); //时间戳为10位需*1000，时间戳为13位的话不需乘1000
+    var Y = date.getFullYear() + '.';
+    var M = (date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1) + '.';
+    var D = (date.getDate() < 10 ? '0' + date.getDate() : date.getDate()) + ' ';
+    var h = (date.getHours() < 10 ? '0' + date.getHours() : date.getHours()) + ':';
+    var m = (date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes());
+    // var s = (date.getSeconds() < 10 ? '0' + date.getSeconds() : date.getSeconds());
+    return Y + M + D + h + m;
+  },
+  changeChina: function(num) {
+    if (num) {
+      var changeNum = ['零', '一', '二', '三', '四', '五', '六', '七', '八', '九'];
+      var unit = ["", "十", "百", "千", "万"];
+      num = parseInt(num);
+      var getWan = function(temp) {
+        var strArr = temp.toString().split("").reverse();
+        var newNum = "";
+        for (var i = 0; i < strArr.length; i++) {
+          var index = parseInt(strArr[i]);
+          newNum = (i == 0 && index == 0 ? "" : (i > 0 && index == 0 && strArr[i - 1] == 0 ? "" : changeNum[index] + (index == 0 ? unit[0] : unit[i]))) + newNum;
+        }
+        if (strArr.length == 2 && strArr[1] == 1) { //数字为十几时
+          newNum = newNum.substring(1, 3);
+        }
+        return newNum;
+      }
+      var overWan = Math.floor(num / 10000);
+      var noWan = num % 10000;
+      if (noWan.toString().length < 4) noWan = "0" + noWan;
+      return overWan ? getWan(overWan) + "万" + getWan(noWan) : getWan(num);
+    }
+  },
+  fuzzyPhoneNumber: function(phoneNumber) {
+    if (!phoneNumber) return
+    var regFuzzyPhoneNum = getRegExp("(\d{3})\d{4}(\d{4})", 'ig');
+    return phoneNumber.replace(regFuzzyPhoneNum, '$1****$2');
+  },
+}
+
+
+
+function formatNumber(n) {
+  n = n.toString()
+  return n[1] ? n : '0' + n
+}
+module.exports = {
+  filter: filter
+}

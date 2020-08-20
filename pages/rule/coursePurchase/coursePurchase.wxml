@@ -1,0 +1,10 @@
+<!--pages/rule/coursePurchase/coursePurchase.wxml-->
+<!-- <text>pages/rule/coursePurchase/coursePurchase.wxml</text> -->
+
+<header title="" class="header" />
+<!-- {{courseRuleInfo}} -->
+<import src="../../../wxParse/wxParse.wxml" />
+
+<view style="padding-top: {{paddingTop}}px;" class="wxParse">
+    <template is="wxParse" data="{{wxParseData:article.nodes}}" />
+</view>

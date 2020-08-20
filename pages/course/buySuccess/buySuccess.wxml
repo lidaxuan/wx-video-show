@@ -1,0 +1,43 @@
+<wxs module="buysucc" src="./buySuccess.wxs"></wxs>
+
+<wxs module="filter" src="../../../utils/returnMTime.wxs"></wxs>
+
+
+<header class="page-header"></header>
+<view class="box" style="padding-top:{{headerTop}}px">
+    <view class="v-bg">
+        <image class="iv-dui" src="/static/img/course_success_dui.png" style="width:76rpx;height:76rpx;margin-top:30rpx;" />
+        <text class="tv-dui">支付成功</text>
+        <image class="buyOkBg" src="/static/img/buyOkBg@2x.png"></image>
+    </view>
+    <view wx:if="{{couponList.length}}" class="v-di">
+        <image src="/static/img/course_success_tip.png" style="width:650rpx;height:60rpx;margin-top:30rpx;padding-bottom:18rpx" />
+    </view>
+    <view wx:for="{{couponList}}" wx:key="item" wx:key-index="index">
+        <view class="v-item">
+            <view class="item-cord">
+                <image class="item-cord-img" src="/static/img/Rectangle@2x(2).png"></image>
+                <view class="zIndex cord-free">免费领取</view>
+                <view class="zIndex">
+                    <text class="cord-amount">{{item.amount}}</text>
+                    <text class="cord-yuan">元</text>
+                </view>
+                <text class="zIndex cord-yuan">可抵现金</text>
+            </view>
+            <view class="item-right">
+                <view class="right-top">
+                    <image class="voucher" src="/static/img/coupon_voucher.png"></image>
+                    <text class="title">{{item.productTitle}}认证课程使用</text>
+                </view>
+                <view class="item-right-bottom">
+                    <!-- <text class="time">{{buysucc.buysucc.validtime(nowtime,item.stime(),item.etime())}}</text> -->
+                    <text class="time" wx:if="{{item.timeStatus == 1}}">{{ filter.filter.timestampToTime(item.stime) }} 至 {{ filter.filter.timestampToTime(item.etime) }}</text>
+                    <text class="time" wx:if="{{item.timeStatus == 2}}" style="color: #EB4655">仅剩 {{ filter.filter.hmsTime(item.remainingTime) }} 活动结束</text>
+                    <text class="time" wx:if="{{item.timeStatus == 3}}">{{ filter.filter.timestampToTime(item.etime) }} 到期 </text>
+
+                    <text data-item="{{item}}" bindtap="goCourseInfo" class="use">立即使用</text>
+                </view>
+            </view>
+        </view>
+    </view>
+</view>

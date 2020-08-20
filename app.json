@@ -1,0 +1,64 @@
+{
+    "pages": [
+        "pages/index/index",
+        "pages/classification/classification",
+        "pages/index/popularRecommendation/popularRecommendation",
+        "pages/index/myCourseRack/myCourseRack",
+        "components/selectedCourse/selectedCourse",
+        "components/courseList/index",
+        "pages/search/index",
+        "pages/login/login/index",
+        "pages/login/init/index",
+        "pages/my/index/index",
+        "pages/my/coupon/index",
+        "pages/my/setup/index",
+        "pages/my/invited/index",
+        "pages/my/friend/index",
+        "pages/my/brokerage/brokerage",
+        "pages/merchant/merchant",
+        "pages/course/courseInfo/courseInfo",
+        "pages/buyCourse/buyCourse",
+        "pages/course/buySuccess/buySuccess",
+        "pages/fullScreenVideo/fullScreenVideo",
+        "pages/rule/coursePurchase/coursePurchase",
+        "pages/webView/index"
+    ],
+    "tabBar": {
+        "color": "#999",
+        "selectedColor": "#F5384D",
+        "borderStyle": "white",
+        "backgroundColor": "#FDFDFF",
+        "list": [
+            {
+                "pagePath": "pages/index/index",
+                "text": "首页",
+                "iconPath": "static/img/icon_home_default.png",
+                "selectedIconPath": "static/img/icon_home.png"
+            },
+            {
+                "pagePath": "pages/classification/classification",
+                "text": "分类",
+                "iconPath": "static/img/icon_category_default.png",
+                "selectedIconPath": "static/img/icon_category.png"
+            },
+            {
+                "pagePath": "pages/my/index/index",
+                "text": "我的",
+                "iconPath": "static/img/icon_me_default.png",
+                "selectedIconPath": "static/img/icon_me.png"
+            }
+        ]
+    },
+    "window": {
+        "backgroundTextStyle": "light",
+        "navigationBarBackgroundColor": "#fff",
+        "navigationBarTitleText": "WeChat",
+        "navigationBarTextStyle": "white",
+        "navigationStyle": "custom"
+    },
+    "sitemapLocation": "sitemap.json",
+    "usingComponents": {
+        "selectedCourse": "/components/selectedCourse/selectedCourse",
+        "login": "/components/login/index"
+    }
+}

@@ -1,0 +1,9 @@
+{
+  "component": true,
+  "usingComponents": {
+    "courseList":"/components/courseList/index",
+    "selectedCourse":"/components/selectedCourse/selectedCourse"
+  },
+  "enablePullDownRefresh":true,
+  "onReachBottomDistance":50
+}

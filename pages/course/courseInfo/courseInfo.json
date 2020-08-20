@@ -1,0 +1,7 @@
+{
+  "usingComponents": {
+      "login": "/components/login/index",
+      "header": "/components/header/index",
+      "canvasdrawer": "/components/canvasdrawer/canvasdrawer"
+  }
+}

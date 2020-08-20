@@ -1,0 +1,56 @@
+.result-box {
+    position: relative;
+    top: -1px;
+    overflow-y: auto;
+    height: 100%;
+    box-sizing: border-box;
+    background-color: #f7f7f7;
+}
+
+.result {
+    position: relative;
+    padding: 8rpx 0 60rpx 0;
+    background: linear-gradient(270deg, rgba(254, 115, 88, 1) 0%, rgba(235, 70, 84, 1) 100%);
+}
+
+.result::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    height: 204rpx;
+    width: 238rpx;
+    background: url(http://i1.fuimg.com/502738/598c1d3ef0381046.png) no-repeat center center/100% 100%;
+}
+
+.result image {
+    display: block;
+    height: 76rpx;
+    width: 76rpx;
+    margin: auto;
+}
+
+.result text {
+    display: block;
+    padding-top: 14rpx;
+    text-align: center;
+    font-size: 38rpx;
+    color: #fff;
+}
+
+.coupon-box {
+}
+
+.coupon-box .title {
+    display: block;
+    height: 60rpx;
+    width: 658rpx;
+    margin: 30rpx auto;
+}
+
+.coupon-box .list {
+    padding: 0 20rpx;
+}
+
+.coupon-box .list .item {
+}

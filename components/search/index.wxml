@@ -1,0 +1,6 @@
+<view class="search" style="padding-top:{{paddingTop}}px">
+    <view class="inner" bind:tap="toSearch">
+        <image class="logo" src="/static/img/logo.png"></image>
+        <view class="input" style="width:{{width}}px">请输入课程名称</view>
+    </view>
+</view>

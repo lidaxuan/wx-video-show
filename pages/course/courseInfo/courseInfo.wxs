@@ -1,0 +1,35 @@
+var splitText = function(data,index){   //分隔讲师
+    if (data){
+        return data.split(':')[index]
+    }
+}
+var get_fomate_min = function (time) {  //转换时间(分钟+秒)
+    if(time){
+        var m = '00';
+        var hour = parseInt(time / 60 / 60);          //时
+        if (time - 60 >= 0) {
+            m = parseInt(time / 60 % 60);          //分
+            m = m <= 9 ? '0' + m : m;
+        }
+        var s = parseInt(time % 60) + hour * 60;          //秒
+        hour = hour <= 9 ? '0' + hour : hour;
+        s = s <= 9 ? '0' + s : s;
+        var minute = parseInt((time - hour * 60));   //分
+        return m + ':' + s;
+    }
+}
+var stringStr = function (str, number) {  //截取字符串
+    console.log(str)
+    if (str) {
+        var lens = str.length;
+        var data = str;
+        lens > number ? (str = str.substring(0, number) + "…") : str;
+        return str;
+    }
+}
+
+module.exports={
+    splitText: splitText,
+    get_fomate_min: get_fomate_min,
+    stringStr: stringStr
+}

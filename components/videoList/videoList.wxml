@@ -1,0 +1,55 @@
+<!--components/videoList/videoList.wxml-->
+<!-- <text>components/videoList/videoList.wxml</text> -->
+<login id="login" bind:onLoginSuccess="onLoginSuccess"></login>
+
+<!-- 引入.wxs文件 src为相对路径，module指定当前模块的名称 -->
+<wxs module="filter" src="../../utils/returnMTime.wxs"></wxs>
+
+
+<scroll-view class='nav-page'>
+    <view class="item-box freeVideoBox" wx:for="{{dataList}}" wx:key="item">
+        <!-- 视频图片层 -->
+        <view data-index="{{index}}" data-item="{{item}}" class="video-image-box freeVideoPanel " style="display: {{ _index == index ? 'none' : 'block' }};" >
+            <image class="topbgblack" src="/static/img/topbgblack@2x.png"></image>
+            <view class="videoTitle">{{ item.video.title }}</view>
+            <view class="video-cover-box">
+                <image lazy-load="true" class="video-image" src="{{item.video.cover + '?x-oss-process=image/resize,w_375'}}" mode="aspectFill"></image>
+            </view>
+            <!-- 视频按钮 -->
+            <image class="video-image-play" src="/static/img/paly.png" mode="scaleToFill" bindtap="videoPlay" data-index="{{index}}" data-item="{{item}}"></image>
+            <view class="allBack"></view>
+            <image wx:if="{{item.course.cfType == 2}}" data-item="{{item}}" bindtap="gocourseinfoBtn" class="gocourseinfoBtn" src="/static/img/gocourseinfo@2x.png"></image>
+        </view>
+
+        <!-- 视频播放层 -->
+        <video  id="vid" bindtimeupdate="timeupdate" bindfullscreenchange="screenChange" show-center-play-btn="{{false}}" bindtap="vidClickFn" src="{{item.video.transcodeUrl}}" data-id="{{index}}" class='video' wx:if="{{_index == index}}" objectFit='contain' autoplay='true' controls></video>
+
+        <view class="sharePanel">
+            <view class="userInfoBox">
+                <view class="userInfoBoxHead">
+                    <image lazy-load="true" data-item="{{item}}" bindtap="goUserPageBtn" class="userInfoBoxHeadSrc" src="{{item.merchant.head + '?x-oss-process=image/resize,w_100'}}" alt />
+                    <image class="authState" wx:if="{{item.merchant.authType == 1}}" src="/static/img/identity@2x.png" alt></image>
+                    <image class="authState" wx:if="{{item.merchant.authType == 2}}" src="/static/img/Daren@2x.png" alt></image>
+                    <image class="authState" wx:if="{{item.merchant.authType == 3}}" src="/static/img/business@2x.png" alt></image>
+                </view>
+                <view class="shopsName">{{item.merchant.nick}}</view>
+                <text data-index="{{index}}" data-item="{{item}}" wx:if="{{ type !=1 && item.user.relation == 0 }}" bindtap="followBtn" class="Unconcerned">关注</text>
+                <text wx:if="{{ type !=1 && item.user.relation == 1 || item.user.relation == 2 }}" bindtap="followBtn" class="concerned">已关注</text>
+            </view>
+            <!-- bindtap="showModal" -->
+            <view class="shareButtonBox" data-course_id='{{item.video.courseId}}' data-title='{{item.video.title}}' data-lecturerInfo='{{item.video.lecturerInfo}}' data-cover='{{item.video.cover}}'>
+                <image data-item="{{item}}" data-index="{{index}}" bindtap="collectionBtn" wx:if="{{!item.course.collect}}" class="imgSize noBeenCollected" src="/static/img/noBeenCollected@2x.png" alt="未收藏"></image>
+                <image data-item="{{item}}" data-index="{{index}}" bindtap="collectionBtn" wx:if="{{item.course.collect}}" class="imgSize haveBeenCollected" src="/static/img/haveBeenCollected@2x.png" alt="已收藏"></image>
+                <text class="followNum">{{ item.course.collectCount <= 0 ? '' : filter.filter.million(item.course.collectCount) }}</text>
+                <image data-item="{{item}}" data-index="{{index}}" bindtap="thumbsUpBtn" wx:if="{{!item.course.thumb}}" class="imgSize notToMention" src="/static/img/notToMention@2x.png" alt="未点赞"></image>
+                <image data-item="{{item}}" data-index="{{index}}" bindtap="thumbsUpBtn" wx:if="{{item.course.thumb}}"  class="imgSize alreadyPraised" src="/static/img/alreadyPraised@2x.png" alt="已点赞"></image>
+                <text class="thumbsUpNum">{{ item.course.thumbCount <= 0 ? '' : filter.filter.million(item.course.thumbCount) }}</text>
+                <button open-type="share" data-item="{{item}}" data-index="{{index}}" class="shareBtn">
+                    <image class="shareButton" src="/static/img/shareButton.png"></image>
+                </button>
+                <!-- <text class="shareNum">{{ videoParam.course.shareCount <= 0 ? '' : filter.filter.million(videoParam.course.shareCount) }}</text> -->
+            </view>
+        </view>
+        <view class="line"></view>
+    </view>
+</scroll-view>

@@ -1,0 +1,78 @@
+.bg {
+    display: none;
+    z-index: 10000;
+    position: fixed;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.bg.show {
+    display: block;
+}
+
+.login-box {
+    display: none;
+    z-index: 10001;
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    flex-direction: column;
+    align-items: center;
+    height: 530rpx;
+    width: 520rpx;
+    padding-top: 60rpx;
+    box-sizing: border-box;
+    font-weight: bold;
+    background-color: #fff;
+    border-radius: 20rpx;
+}
+
+.login-box.show {
+    display: flex;
+}
+
+.title {
+    /* margin-bottom: 70rpx; */
+    margin-bottom: 62rpx;
+    font-size: 36rpx;
+    color: #333;
+}
+
+.btn {
+    height: 100rpx;
+    width: 380rpx;
+    line-height: 100rpx;
+    text-align: center;
+    font-size: 30rpx;
+    color: #fff;
+    border-radius: 50rpx;
+}
+
+.wechat {
+    /* margin-bottom: 45rpx; */
+    background: linear-gradient(90deg, rgba(235, 71, 84, 1) 0%, rgba(236, 72, 84, 1) 100%);
+}
+
+.xjs {
+    margin-bottom: 10rpx;
+    background: linear-gradient(246deg, rgba(254, 114, 88, 1) 0%, rgba(238, 77, 85, 1) 100%);
+}
+
+.tmp_icon {
+    height: 94rpx;
+    width: 110rpx;
+    margin-bottom: 64rpx;
+}
+
+.close {
+    position: absolute;
+    top: 30rpx;
+    right: 30rpx;
+    height: 40rpx;
+    width: 40rpx;
+    background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAMAAADXqc3KAAAAOVBMVEUAAAAyMjIzMzMzMzM1NTUxMTEzMzMxMTEzMzMtLS0zMzM0NDQzMzMzMzMyMjIzMzMxMTEwMDAzMzPsL1xWAAAAEnRSTlMAk/XZPxqdDWUF1sawpoR3LyCD2Ct2AAAAfklEQVQoz43R3Q5AMAxAYYaZf/r+D6vLMke3ROxG8x0Spfk601hKguBkNzwsMl96vxOR9u2dgtfHRHLBZdNpfwruzji3ueC9jpTKKbgtHi8KXhac41PAef9iU5xivS7sxabW2dT63+/WLDglxB+FU1YdZpxy6PXy22m3Desx3QwGDc50XhzTAAAAAElFTkSuQmCC) no-repeat center center/24rpx 24rpx;
+}

@@ -1,0 +1,26 @@
+<header class="page-header header" title="优惠券">
+</header>
+<view class="page-container coupon-box" style="padding-top:{{headerHeight}}px">
+    <view class="tab-box" style="top:{{headerHeight}}px">
+        <text class="tab {{tabCurrentIndex == index ? 'active' : ''}}" wx:for="{{dataList}}" wx:key="tab" wx:for-item="item" wx:for-index="index" data-item="item" data-index="{{index}}" bindtap="switchCourseList">{{item.title}}</text>
+    </view>
+    <view class="coupon-list">
+        <view class="item" wx:for="{{dataList[tabCurrentIndex].data}}" wx:key="dataItem">
+            <view class="title" wx:if="{{dataList[tabCurrentIndex].showHeadView}}">
+                <view class="head">
+                    <image class="avatar" src="{{item.head}}" data-item="{{item}}" bindtap="clickUserHead"></image>
+                    <image class="authState" wx:if="{{item.authType == 1}}" src="/static/img/identity@2x.png" alt></image>
+                    <image class="authState" wx:if="{{item.authType == 2}}" src="/static/img/Daren@2x.png" alt></image>
+                    <image class="authState" wx:if="{{item.authType == 3}}" src="/static/img/business@2x.png" alt></image>
+                </view>
+                <text class="name">{{item.nick}}</text>
+                <view class="btn-to-store" hover-class="hover" hover-start-time="0" hover-stay-time="100" data-item="{{item}}" bindtap="clickGoinStore">进店</view>
+            </view>
+            <couponList backgroundColor="#f9f9f9" dataList="{{item.myCouponVos}}" couponType="{{tabCurrentIndex}}"></couponList>
+        </view>
+    </view>
+    <view class="choiceness-empty" wx:if="{{dataList[tabCurrentIndex].noData}}">
+        <image class="choiceness-empty-image" src="/static/img/empty2.png"></image>
+        <text class="choiceness-empty-text">暂无优惠券,请知悉!</text>
+    </view>
+</view>
